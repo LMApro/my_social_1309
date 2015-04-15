@@ -115,28 +115,24 @@ angular.module("mySocial.post.service", [])
 			});
 		};
 
-		/*postService.isDownvoted = function(post) {
-			
-		};*/
-
 		postService.likeComment = function(post, comment) {
 			return $http.post('/posts/' + post._id + '/comments/' + comment._id + '/like', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
+			})/*.success(function(data){
 				if (!data.error) {
 					comment.usersLiked.push(data);
 				}
-			});
+			})*/;
 		};
 
 		postService.dislikeComment = function(post, comment) {
 			return $http.post('/posts/' + post._id + '/comments/' + comment._id + '/dislike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
+			})/*.success(function(data){
 				if (!data.error) {
 					comment.usersDisliked.push(data);
 				}
-			});
+			})*/;
 		};
 
 		return postService;

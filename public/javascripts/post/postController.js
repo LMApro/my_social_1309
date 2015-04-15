@@ -4,6 +4,7 @@ angular.module("mySocial.post.controller", [])
 		$scope.error = '';
 		$scope.button = { name: 'Comment' };
 		$scope.currentComment = {};
+		$scope.currentUser = auth.currentUser();
 
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.addComment = function(){
@@ -21,12 +22,29 @@ angular.module("mySocial.post.controller", [])
 			$scope.body = '';
 		};
 
-		$scope.likeComment = function(comment) {
-			posts.likeComment(post, comment);
+		$scope.like_unlikeComment = function(comment) {
+			var user = $scope.currentUser;
+			if (comment.usersLiked.indexOf(user)) {
+				posts.likeComment(post, comment);
+				comment.usersLiked.push(user);
+			} else {
+				posts.dislikeComment(post, comment);
+				var index = comment.usersLiked.indexOf(user);
+				comment.usersLiked.splice(index, 1);
+			}
 		};
 
-		$scope.dislikeComment = function(comment) {
-			posts.dislikeComment(post, comment);
+		$scope.dislike_undislikeComment = function(comment) {
+			var user = $scope.currentUser;
+			if (comment.usersDisliked.indexOf(user)) {
+				posts.dislikeComment(post, comment);
+				comment.usersDisliked.push(user);
+			} else {
+				posts.dislikeComment(post, comment);
+				var index = comment.usersDisliked.indexOf(user);
+				comment.usersDisliked.splice(index, 1);
+			}
+			
 		};
 
 		$scope.deleteComment = function(post, comment) {
