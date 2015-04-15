@@ -44,46 +44,33 @@ angular.module("mySocial.post.service", [])
 		postService.like = function(post) {
 			return $http.put('/posts/' + post._id + '/like', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
-				if (!data.error) {
-					post.usersLiked.push(data);
-				}
-			});
+			})
+			/*.success(function(data){
+				post.usersLiked.push(data);
+			})*/
+			;
 		};
 
 		postService.unlike = function(post) {
 			return $http.post('/posts/' + post._id + '/unlike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
-				if (!data.error) {
-					var index = post.usersLiked.indexOf(data);
-					post.usersLiked.splice(index, 1);
-				}
-			});
+			})
+			/*.success(function(data){
+				var index = post.usersLiked.indexOf(data);
+				post.usersLiked.splice(index, 1);
+			})*/
+			;
 		};
-
-		// postService.isUpvoted = function(post) {
-	
-		// };
 
 		postService.dislike = function(post) {
 			return $http.put('/posts/' + post._id + '/dislike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
-				if (!data.error) {
-					post.usersDisliked.push(data);
-				}
 			});
 		};
 
 		postService.undislike = function(post) {
 			return $http.post('/posts/' + post._id + '/undislike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
-				if (!data.error) {
-					var index = post.usersDisliked.indexOf(data);
-					post.usersDisliked.splice(index, 1);
-				}
 			});
 		};
 

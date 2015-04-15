@@ -7,6 +7,7 @@ angular.module("mySocial.main.controller", [])
 		$scope.posts = posts.posts;
 		$scope.error = '';
 		$scope.editing = {};
+		$scope.currentLike = false;
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
 
 		$scope.addPost = function(){
@@ -35,12 +36,27 @@ angular.module("mySocial.main.controller", [])
 			return false;
 		};
 
-		$scope.like = function(post) {
-			posts.like(post);
+
+		$scope.like_unlike = function(post, user) {
+			if (post.usersLiked.indexOf(user) === -1) {
+				posts.like(post);
+				post.usersLiked.push(user);
+			} else {
+				posts.unlike(post);
+				var index = post.usersLiked.indexOf(user);
+				post.usersLiked.splice(index, 1);
+			}
 		};
 
-		$scope.dislike = function(post) {
-			posts.dislike(post);
+		$scope.dislike_undislike = function(post, user) {
+			if (post.usersDisliked.indexOf(user) === -1) {
+				posts.dislike(post);
+				post.usersDisliked.push(user);
+			} else {
+				posts.undislike(post);
+				var index = post.usersDisliked.indexOf(user);
+				post.usersDisliked.splice(index, 1);
+			}
 		};
 
 		$scope.edit = function(post) {
