@@ -1,0 +1,21 @@
+<form ng-show="isLoggedIn()" class="addPost">
+	<textarea class="form-control" type="text" placeholder="Share something..." ng-model="newtitle" ng-keyup="logNewTitle()" rows="3"></textarea>
+	<br>
+	<div class="input-group">
+		<input class="form-control" type="text" placeholder="Link (if any)" ng-model="newlink">
+		<span class="input-group-btn"><button class="btn btn-primary" ng-click="addPost()">Add Post</button></span>
+	</div>
+	<div ng-show="error!==''">
+		<br>
+		<p class="text-danger">{{error}}</p>
+	</div>
+</form>
+<div ng-hide="isLoggedIn()">
+  <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+</div>
+<hr>
+<% include viewPosts.ejs %>
+
+
+
+

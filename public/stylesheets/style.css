@@ -1,0 +1,50 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+.text-primary {
+	color: #4af;
+}
+.addPost {
+	margin-top: 40px;
+}
+
+.glyphicon-thumbs-up:hover, .glyphicon-thumbs-down:hover {
+	cursor: pointer;
+}
+
+.post {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
+.text-only {
+	color: #222;
+}
+
+.post a {
+	font-size: 1.2em;
+}
+
+.home-button {
+	font-size: 0.7em;
+	margin-bottom: -5px;
+}
+
+.voted {
+	color: firebrick;
+}
+
+.search-box {
+	width: 700px;
+}
+
+textarea {
+	color: #222;
+}
