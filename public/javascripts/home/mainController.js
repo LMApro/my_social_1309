@@ -41,10 +41,12 @@ angular.module("mySocial.main.controller", [])
 			if (post.usersLiked.indexOf(user) === -1) {
 				posts.like(post);
 				post.usersLiked.push(user);
+				post.points+=2;
 			} else {
 				posts.unlike(post);
 				var index = post.usersLiked.indexOf(user);
 				post.usersLiked.splice(index, 1);
+				post.points-=2;
 			}
 		};
 
@@ -52,10 +54,12 @@ angular.module("mySocial.main.controller", [])
 			if (post.usersDisliked.indexOf(user) === -1) {
 				posts.dislike(post);
 				post.usersDisliked.push(user);
+				post.points--;
 			} else {
 				posts.undislike(post);
 				var index = post.usersDisliked.indexOf(user);
 				post.usersDisliked.splice(index, 1);
+				post.points++;
 			}
 		};
 
