@@ -4,7 +4,7 @@ angular.module("mySocial.post.controller", [])
 		$scope.error = '';
 		$scope.button = { name: 'Comment' };
 		$scope.currentComment = {};
-		$scope.currentUser = auth.currentUser();
+		$scope.currentUser = auth.currentUser;
 
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.addComment = function(){
@@ -17,13 +17,13 @@ angular.module("mySocial.post.controller", [])
 				});
 				$scope.error = null;
 			} else {
-				$scope.error = 'You must enter some text to comment!';
+				$scope.error = 'Bạn chưa nhập nội dung bình luận!';
 			}
 			$scope.body = '';
 		};
 
 		$scope.like_unlikeComment = function(post, comment) {
-			var user = $scope.currentUser;
+			var user = auth.currentUser();
 			if (comment.usersLiked.indexOf(user)) {
 				posts.likeComment(post, comment);
 				comment.usersLiked.push(user);
@@ -35,7 +35,7 @@ angular.module("mySocial.post.controller", [])
 		};
 
 		$scope.dislike_undislikeComment = function(post, comment) {
-			var user = $scope.currentUser;
+			var user = auth.currentUser();
 			if (comment.usersDisliked.indexOf(user)) {
 				posts.dislikeComment(post, comment);
 				comment.usersDisliked.push(user);
@@ -50,12 +50,12 @@ angular.module("mySocial.post.controller", [])
 			if (auth.isLoggedIn()) {
 				var user = auth.currentUser();
 				if (comment.usersLiked.indexOf(user) !== -1) {
-					return "Unlike";
+					return "Bỏ thích";
 				} else {
-					return "Like";
+					return "Thích";
 				}
 			} else {
-				return "Log in to like this";
+				return "Bạn cần đăng nhập!";
 			}
 		};
 
@@ -63,17 +63,17 @@ angular.module("mySocial.post.controller", [])
 			if (auth.isLoggedIn()) {
 				var user = auth.currentUser();
 				if (comment.usersDisliked.indexOf(user) !== -1) {
-					return "Undislike";
+					return "Bỏ không thích";
 				} else {
-					return "Dislike";
+					return "Không thích";
 				}
 			} else {
-				return "Log in to dislike this";
+				return "Bạn cần đăng nhập!";
 			}
 		};
 
 		$scope.deleteComment = function(post, comment) {
-			if ($window.confirm("Are you sure want to delete?")) {
+			if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 				posts.deleteComment(post, comment);	
 			}
 		};
@@ -92,7 +92,7 @@ angular.module("mySocial.post.controller", [])
 					date: new Date()
 				});
 			} else {
-				if ($window.confirm("Do you want to delete this comment?")) {
+				if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 					posts.deleteComment(post, $scope.currentComment);
 				}
 			}

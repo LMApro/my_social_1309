@@ -8,7 +8,7 @@
 				  <div class="container-fluid">
 				    <!-- Brand and toggle get grouped for better mobile display -->
 				    <div class="navbar-header">
-				      <a class="navbar-brand" href="#/home"><span class="glyphicon glyphicon-book"></span> My Diary</a>
+				      <a class="navbar-brand" href="#/home"><span class="glyphicon glyphicon-globe"></span> My Network</a>
 				    </div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,16 +18,16 @@
 				        <li class="dropdown">
 				          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser()}} <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
-				            <li><a ng-href="/#/users/{{currentUser()}}">View your posts</a></li>
-				            <li><a ng-href="/#/changePassword">Change password</a></li>
+				            <li><a ng-href="/#/users/{{currentUser()}}">Bài viết của bạn</a></li>
+				            <li><a ng-href="/#/changePassword">Thay đổi mật khẩu</a></li>
 				            <li class="divider"></li>
-				            <li><a href="" ng-click="logOut()">Log Out</a></li>
+				            <li><a href="" ng-click="logOut()">Đăng xuất</a></li>
 				          </ul>
 				        </li> 
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right" ng-if="!isLoggedIn()">
-				        <li><a href="/#/login">Log In</a></li>
-				        <li><a href="/#/register">Register</a></li>
+				        <li><a href="/#/login">Đăng nhập</a></li>
+				        <li><a href="/#/register">Đăng kí</a></li>
 				      </ul>
 				    </div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->

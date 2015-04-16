@@ -1,6 +1,7 @@
-<h3>Posts of <span ng-if="username!==currentUser()">{{username}}</span><span ng-if="username===currentUser()">you</span></h3>
+<h3 class="text-only">Các bài viết của <span ng-if="username!==currentUser()">{{username}}</span><span ng-if="username===currentUser()">bạn</span></h3>
 <hr>
-<p ng-if="posts.length==0">Nothing to show.</p>
+<% include viewPosts.ejs %>
+<!-- <p ng-if="posts.length==0">Chưa có bài viết nào.</p>
 <div ng-show="editing.current[1]">
 	<textarea class="form-control" rows="{{post.title.length/80}}" ng-model="title"></textarea>
 	<br>
@@ -45,6 +46,7 @@
 		</span>
 	</p>
 	<hr>
-</div>
+</div> -->
+
 
 

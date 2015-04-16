@@ -236,7 +236,7 @@ router
 		console.log(req.body);
 		User.findOne({username: req.body.username}, function(err, user){
 			if (user) {
-				return res.status(400).json({ error: "Username '" + req.body.username + "' already exists, choose another one!"});
+				return res.status(400).json({ error: "Tên '" + req.body.username + "' đã có người dùng, chọn tên khác!"});
 			} else {
 				var user = new User();
 				user.username = req.body.username;
@@ -266,7 +266,7 @@ router
 		User.findOne({username: req.body.username}, function(err, user){
 			console.log(user.validPassword(req.body.currentPassword));
 			if (!user.validPassword(req.body.currentPassword)) {
-				return res.status(401).json({error: 'Current password is not correct!'});
+				return res.status(401).json({error: 'Bạn đã nhập sai password hiện tại!'});
 			} else {
 				user.setPassword(req.body.newPassword);
 				user.save(function(err){

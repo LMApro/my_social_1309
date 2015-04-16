@@ -16,33 +16,83 @@ angular.module("mySocial.user.controller", [])
 		});
 
 
-		$scope.like = function(post) {
-			posts.like(post);
+		$scope.like_unlike = function(post) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersLiked.indexOf(user) === -1) {
+					posts.like(post);
+					post.usersLiked.push(user);
+					post.points+=2;
+				} else {
+					posts.unlike(post);
+					var index = post.usersLiked.indexOf(user);
+					post.usersLiked.splice(index, 1);
+					post.points-=2;
+				}
+			}
 		};
 
-		$scope.dislike = function(post) {
-			posts.dislike(post);
+		$scope.dislike_undislike = function(post) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersDisliked.indexOf(user) === -1) {
+					posts.dislike(post);
+					post.usersDisliked.push(user);
+					post.points--;
+				} else {
+					posts.undislike(post);
+					var index = post.usersDisliked.indexOf(user);
+					post.usersDisliked.splice(index, 1);
+					post.points++;
+				}
+			}
+		};
+
+		$scope.likeTooltipText = function(post) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersLiked.indexOf(user) !== -1) {
+					return "Bỏ thích";
+				} else {
+					return "Thích";
+				}
+			} else {
+				return "Bạn cần đăng nhập!";
+			}
+		};
+
+		$scope.dislikeTooltipText = function(post) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersDisliked.indexOf(user) !== -1) {
+					return "Bỏ không thích";
+				} else {
+					return "Không thích";
+				}
+			} else {
+				return "Bạn cần đăng nhập!";
+			}
 		};
 
 		$scope.edit = function(post) {
 			$scope.editing.current = [post, true];
 			$scope.title = $scope.editing.current[0].title;
 			$scope.link = $scope.editing.current[0].link;
-			// $window.scrollTo(0, 0);
+			$window.scrollTo(0, 0);
 		};
 
 		$scope.save = function() {
 			// console.log("saved");
 			if (!$scope.title && !$scope.link) {
-				if ($window.confirm("Do you want to delete this post?")) {
+				if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 					posts.delete($scope.editing.current[0]);
 					$scope.editing = {};
 					$scope.error = '';
 				}
 			} else if (!$scope.title) {
-				$scope.error = 'You must fill out Title or Status';
+				$scope.error = 'Bạn chưa nhập nội dung!';
 			} else if ($scope.link && !VALID_LINK.test($scope.link)) {
-				$scope.error = 'Invalid link';
+				$scope.error = 'Link không hợp lệ!';
 			} else {
 				var updatedPost = {
 					_id: $scope.editing.current[0]._id,
@@ -70,7 +120,7 @@ angular.module("mySocial.user.controller", [])
 
 
 		$scope.delete = function(post) {
-			if ($window.confirm("Are you sure want to delete?")) {
+			if ($window.confirm("Có phải bạn muốn xóa bài viết này?")) {
 				posts.delete(post);
 				var index = $scope.posts.map(function(item){
 					return item._id;

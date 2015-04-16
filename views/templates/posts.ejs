@@ -5,51 +5,53 @@
 	</p>
 	<p>
 		<span class="small">
-			<span class="text-muted">by</span> 
-			<span ng-if="post.author!==currentUser" class="small"><a ng-href="/#/users/{{post.author}}">{{post.author}}</a></span>
-			<span ng-if="post.author===currentUser" class="small"><a ng-href="/#/users/{{currentUser}}">you</a></span>
+			<span class="text-muted">đăng bởi</span> 
+			<span ng-if="post.author!==currentUser()" class="small"><a ng-href="/#/users/{{post.author}}">{{post.author}}</a>,</span>
+			<span ng-if="post.author===currentUser()" class="small"><a ng-href="/#/users/{{currentUser()}}">bạn</a>,</span>
 		</span>
-		<span class="text-muted small">at {{post.date | date: 'HH:mm - MMM dd, yyyy'}}</span>
+		<span class="text-muted small">lần cuối cập nhật: {{post.date | date: 'HH:mm - MMM dd, yyyy'}}</span>
 		<span class="pull-right small">
-			<span ng-if="post.comments.length==0">Be the first to comment</span>
-			<span ng-if="post.comments.length==1">1 comment</span>
-			<span ng-if="post.comments.length>1">{{ post.comments.length + ' comments' }}</span>
+			<span ng-if="post.comments.length==0">Chưa có bình luận nào!</span>
+			<span ng-if="post.comments.length>0">{{ post.comments.length + ' bình luận' }}</span>
 		</span>
 	</p>
 </div>
 
 <div class="col-xs-11 col-xs-offset-1">
 	<div ng-repeat="comment in post.comments" ng-mouseover="canEditAndDelete=true" ng-mouseleave="canEditAndDelete=false">
-		<p ng-controller="NavCtrl">
+		<p>
 			<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(comment)}}" ng-click="like_unlikeComment(post, comment)"></span>
 			{{comment.usersLiked.length}} &nbsp;
 			<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(comment)}}" ng-click="dislike_undislikeComment(post, comment)"></span>
 			{{comment.usersDisliked.length}} &nbsp;
 			{{comment.body}}
+		</p>
+		<p>
 			<span class="small">
-				<span class="text-muted"> &nbsp;by</span> 
-				<span ng-if="comment.author!==currentUser"><a ng-href="/#/users/{{comment.author}}">{{comment.author}}</a></span>
-				<span ng-if="comment.author===currentUser" class="text-muted"><a href="/#/users/{{currentUser}}">you</a></span>
+				<span class="text-muted"> đăng bởi</span> 
+				<span ng-if="comment.author!==currentUser()"><a ng-href="/#/users/{{comment.author}}">{{comment.author}}</a>,</span>
+				<span ng-if="comment.author===currentUser()" class="text-muted"><a href="/#/users/{{currentUser()}}">bạn</a>,</span>
 			</span>
-			<span class="small text-muted">at {{comment.date | date: 'HH:mm - MMM dd, yyyy' }}</span>
+			<span class="small text-muted">lần cuối cập nhật: {{comment.date | date: 'HH:mm, dd/MM/yyyy' }}</span>
 			<span class="pull-right small" ng-if="comment.author===currentUser() && canEditAndDelete">
-				<a href="" ng-click="editComment(post, comment)">Edit</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Delete</a>
+				<a href="" ng-click="editComment(post, comment)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Xóa</a>
 			</span>
 		</p>
+		
 		<hr>
 	</div>
 </div>
 
 <div ng-hide="isLoggedIn()">
-  <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
+  <h3>Bạn cần <a href="/#/login">đăng nhập</a> hoặc <a href="/#/register">đăng kí</a> để có thể bình luận.</h3>
 </div>
 
 <form class="input-group" ng-show="isLoggedIn()" style="margin-top: 30px;">
-	<input type="text" class="form-control" placeholder="Enter something to comment" ng-model="body">
-	<span class="input-group-btn" ng-if="button.name==='Comment'"><button class="btn btn-primary" ng-click="addComment()">Comment</button></span>
+	<input type="text" class="form-control" placeholder="Viết bình luận..." ng-model="body">
+	<span class="input-group-btn" ng-if="button.name==='Comment'"><button class="btn btn-primary" ng-click="addComment()">Bình luận</button></span>
 	<span class="input-group-btn" ng-if="button.name==='Save'">
-		<button class="btn btn-primary" ng-click="save(post, comment)">Save</button>
-		<button class="btn btn-default" ng-click="reset()">Cancel</button>
+		<button class="btn btn-primary" ng-click="save(post, comment)">Lưu</button>
+		<button class="btn btn-default" ng-click="reset()">Hủy</button>
 	</span>
 </form>
 <br>

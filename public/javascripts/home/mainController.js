@@ -12,9 +12,9 @@ angular.module("mySocial.main.controller", [])
 
 		$scope.addPost = function(){
 			if (!$scope.newtitle) {
-				$scope.error = 'You must fill out Title or Status';
+				$scope.error = 'Bạn chưa nhập nội dung!';
 			} else if ($scope.newlink && !VALID_LINK.test($scope.newlink)) {
-				$scope.error = 'Invalid link';
+				$scope.error = 'Link không hợp lệ!';
 			} else {
 				//console.log("valid post");
 				posts.create({
@@ -64,12 +64,12 @@ angular.module("mySocial.main.controller", [])
 			if (auth.isLoggedIn()) {
 				var user = auth.currentUser();
 				if (post.usersLiked.indexOf(user) !== -1) {
-					return "Unlike";
+					return "Bỏ thích";
 				} else {
-					return "Like";
+					return "Thích";
 				}
 			} else {
-				return "Log in to like this";
+				return "Bạn cần đăng nhập!";
 			}
 		};
 
@@ -77,12 +77,12 @@ angular.module("mySocial.main.controller", [])
 			if (auth.isLoggedIn()) {
 				var user = auth.currentUser();
 				if (post.usersDisliked.indexOf(user) !== -1) {
-					return "Undislike";
+					return "Bỏ không thích";
 				} else {
-					return "Dislike";
+					return "Không thích";
 				}
 			} else {
-				return "Log in to dislike this";
+				return "Bạn cần đăng nhập!";
 			}
 		};
 
@@ -96,15 +96,15 @@ angular.module("mySocial.main.controller", [])
 		$scope.save = function(){
 			
 			if (!$scope.title && !$scope.link) {
-				if ($window.confirm("Do you want to delete this post?")) {
+				if ($window.confirm("Có phải bạn muốn xóa bài viết này?")) {
 					posts.delete($scope.editing.current[0]);
 					$scope.editing = {};
 					$scope.error = '';
 				}
 			} else if (!$scope.title) {
-				$scope.error = 'You must fill out Title or Status';
+				$scope.error = 'Bạn chưa nhập nội dung!';
 			} else if ($scope.link && !VALID_LINK.test($scope.link)) {
-				$scope.error = 'Invalid link';
+				$scope.error = 'Link không hợp lệ!';
 			} else {
 				// console.log($scope.title);
 				// console.log($scope.link);
@@ -128,7 +128,7 @@ angular.module("mySocial.main.controller", [])
 		};
 
 		$scope.delete = function(post) {
-			if ($window.confirm("Are you sure want to delete?")) {
+			if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 				posts.delete(post);
 			}			
 		};
