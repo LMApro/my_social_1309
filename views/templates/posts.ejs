@@ -8,7 +8,6 @@
 			<span class="text-muted">by</span> 
 			<span ng-if="post.author!==currentUser" class="small"><a ng-href="/#/users/{{post.author}}">{{post.author}}</a></span>
 			<span ng-if="post.author===currentUser" class="small"><a ng-href="/#/users/{{currentUser}}">you</a></span>
-
 		</span>
 		<span class="text-muted small">at {{post.date | date: 'HH:mm - MMM dd, yyyy'}}</span>
 		<span class="pull-right small">
@@ -20,7 +19,7 @@
 </div>
 
 <div class="col-xs-11 col-xs-offset-1">
-	<div ng-repeat="comment in post.comments">
+	<div ng-repeat="comment in post.comments" ng-mouseover="canEditAndDelete=true" ng-mouseleave="canEditAndDelete=false">
 		<p ng-controller="NavCtrl">
 			<span class="glyphicon glyphicon-thumbs-up" ng-click="like_unlikeComment(comment)"></span>
 			{{comment.usersLiked.length}} &nbsp;
@@ -33,7 +32,7 @@
 				<span ng-if="comment.author===currentUser" class="text-muted"><a href="/#/users/{{currentUser}}">you</a></span>
 			</span>
 			<span class="small text-muted">at {{comment.date | date: 'HH:mm - MMM dd, yyyy' }}</span>
-			<span class="pull-right small" ng-if="comment.author===currentUser()">
+			<span class="pull-right small" ng-if="comment.author===currentUser() && canEditAndDelete">
 				<a href="" ng-click="editComment(post, comment)">Edit</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Delete</a>
 			</span>
 		</p>

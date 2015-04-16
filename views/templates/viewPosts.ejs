@@ -46,9 +46,9 @@
 	</p>
 	<p ng-show="editing.current[0]._id!==post._id">
 		<span>{{post.points}} points</span> &nbsp;
-		<span class="glyphicon glyphicon-thumbs-up" ng-class="{voted:isUpvoted(post)}" ng-click="like_unlike(post, currentUser())"></span>
+		<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(post)}}" ng-click="like_unlike(post, currentUser())"></span>
 			{{post.usersLiked.length}} &nbsp;
-		<span class="glyphicon glyphicon-thumbs-down" ng-class="{voted:isDownvoted(post)}" ng-click="dislike_undislike(post, currentUser())"></span>
+		<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(post)}}" ng-click="dislike_undislike(post, currentUser())"></span>
 			{{post.usersDisliked.length}} &nbsp;
 		<a ng-href="/#/posts/{{post._id}}" class="text-primary">
 			<span ng-if="post.comments.length==0">Be the first to comment</span>

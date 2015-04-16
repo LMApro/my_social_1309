@@ -28,15 +28,6 @@ angular.module("mySocial.main.controller", [])
 			}
 		};
 
-		$scope.isUpvoted = function(post) {
-		   return false;
-		};
-
-		$scope.isDownvoted = function(post) {
-			return false;
-		};
-
-
 		$scope.like_unlike = function(post, user) {
 			if (post.usersLiked.indexOf(user) === -1) {
 				posts.like(post);
@@ -60,6 +51,24 @@ angular.module("mySocial.main.controller", [])
 				var index = post.usersDisliked.indexOf(user);
 				post.usersDisliked.splice(index, 1);
 				post.points++;
+			}
+		};
+
+		$scope.likeTooltipText = function(post) {
+			var user = auth.currentUser();
+			if (post.usersLiked.indexOf(user) !== -1) {
+				return "Unlike";
+			} else {
+				return "Like";
+			}
+		};
+
+		$scope.dislikeTooltipText = function(post) {
+			var user = auth.currentUser();
+			if (post.usersDisliked.indexOf(user) !== -1) {
+				return "Undislike";
+			} else {
+				return "Dislike";
 			}
 		};
 

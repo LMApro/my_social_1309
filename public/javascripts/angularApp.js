@@ -8,7 +8,8 @@ angular.module("mySocial", [
 	"mySocial.main.controller",
 	"mySocial.user.controller",
 	"mySocial.auth.controller",
-	"mySocial.nav.controller"
+	"mySocial.nav.controller",
+	'ui.bootstrap'
 	]);
 	
 	
