@@ -7,22 +7,22 @@ angular.module("mySocial.auth.controller", [])
 
 		$scope.register = function(){
          if (!$scope.user.username) {
-         	$scope.messages.error = "Please provide an username contains 5 to 20 characters!";
+         	$scope.messages.error = "Bạn chưa nhập Tên người dùng!";
          } 
          else if (!USER_REGEX.test($scope.user.username)) {
-            $scope.messages.error = "Username must between 5 to 20 characters and not included special characters";
+            $scope.messages.error = "Tên người dùng từ 5 đến 20 kí tự và không chứa khoảng trắng và kí tự đặc biệt!";
          } 
          else if (!$scope.user.password) {
-         	$scope.messages.error = "Please provide a password (at least 8 characters)!";
+         	$scope.messages.error = "Bạn chưa nhập mật khẩu (ít nhất 8 kí tự)!";
          } 
          else if (!PASS_REGEX.test($scope.user.password)) {
-            $scope.messages.error = "Password must have at least 8 characters!";
+            $scope.messages.error = "Mật khẩu cần ít nhất 8 kí tự!";
          } 
          else if (!$scope.user.verifyPass) {
-         	$scope.messages.error = "Please confirm your password!";
+         	$scope.messages.error = "Bạn chưa nhập lại mật khẩu!";
          } 
          else if ($scope.user.password != $scope.user.verifyPass) {
-            $scope.messages.error = "Password must match";
+            $scope.messages.error = "Mật khẩu chưa khớp!";
          } 
          else {
          	console.log($scope.user);
@@ -40,7 +40,7 @@ angular.module("mySocial.auth.controller", [])
 		
 		$scope.logIn = function(){
 			if (!$scope.user.username && !$scope.user.password) {
-				$scope.messages.error = "Please fill out all fields!";
+				$scope.messages.error = "Bạn chưa nhập tên người dùng hoặc mật khẩu!";
 			} else {
 				auth
 					.logIn($scope.user)
@@ -56,13 +56,13 @@ angular.module("mySocial.auth.controller", [])
       $scope.changePassword = function(){
          $scope.user.username = auth.currentUser();
          if (!$scope.user.currentPassword || !$scope.user.newPassword || !$scope.user.verifyNewPassword) {
-            $scope.messages.error = 'You must fill out all the fields!';
+            $scope.messages.error = 'Bạn chưa nhập tên người dùng hoặc mật khẩu!';
          }
          else if (!PASS_REGEX.test($scope.user.newPassword)) {
-            $scope.messages.error = 'Password must have at least 8 characters!';
+            $scope.messages.error = 'Mật khẩu cần ít nhất 8 kí tự!';
          } 
          else if ($scope.user.newPassword != $scope.user.verifyNewPassword) {
-            $scope.messages.error = 'It looks like your passwords are not match, check again!';
+            $scope.messages.error = 'Mật khẩu chưa khớp!';
          } 
          else {
             auth
@@ -73,7 +73,7 @@ angular.module("mySocial.auth.controller", [])
                .then(function(){
                   $scope.messages = {};
                   $scope.user = {};
-                  $scope.messages.success = "Password updated!";
+                  $scope.messages.success = "Đã cập nhật mật khẩu!";
                });
          }
          

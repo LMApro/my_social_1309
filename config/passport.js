@@ -10,12 +10,12 @@ passport.use(new LocalStrategy(function(username, password, done){
 		if (err) return done(err);
 		if (!user) {
 			return done(null, false, {
-				error: 'Username does not exist'
+				error: 'Tên người dùng không tồn tại!'
 			});
 		}
 		if (!user.validPassword(password)) {
 			return done(null, false, {
-				error: 'Incorrect password'
+				error: 'Sai mật khẩu, nhập lại!'
 			});
 		}
 		return done(null, user);

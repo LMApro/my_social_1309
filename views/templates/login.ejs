@@ -1,13 +1,13 @@
 
 <div class="col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3">
   <form ng-submit="logIn()" class="form-group">
-    <h3>Log In</h3>
+    <h3>Đăng nhập vào My Network</h3>
     <hr>
-    <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+    <input type="text" class="form-control" placeholder="Tên người dùng" ng-model="user.username">
     <br>
-    <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+    <input type="password" class="form-control" placeholder="Mật khẩu" ng-model="user.password">
     <br>
-    <button type="submit" class="btn btn-primary">Log In</button>
+    <button type="submit" class="btn btn-primary">Đăng nhập</button>
   </form>
   <br>
   <span class="text-danger">{{messages.error}}</span>

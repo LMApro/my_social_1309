@@ -236,7 +236,7 @@ router
 		console.log(req.body);
 		User.findOne({username: req.body.username}, function(err, user){
 			if (user) {
-				return res.status(400).json({ error: "Tên '" + req.body.username + "' đã có người dùng, chọn tên khác!"});
+				return res.status(400).json({ error: "Tên '" + req.body.username + "' đã được sử dụng, chọn tên khác!"});
 			} else {
 				var user = new User();
 				user.username = req.body.username;
