@@ -22,29 +22,54 @@ angular.module("mySocial.post.controller", [])
 			$scope.body = '';
 		};
 
-		$scope.like_unlikeComment = function(comment) {
+		$scope.like_unlikeComment = function(post, comment) {
 			var user = $scope.currentUser;
 			if (comment.usersLiked.indexOf(user)) {
 				posts.likeComment(post, comment);
 				comment.usersLiked.push(user);
 			} else {
-				posts.dislikeComment(post, comment);
+				posts.unlikeComment(post, comment);
 				var index = comment.usersLiked.indexOf(user);
 				comment.usersLiked.splice(index, 1);
 			}
 		};
 
-		$scope.dislike_undislikeComment = function(comment) {
+		$scope.dislike_undislikeComment = function(post, comment) {
 			var user = $scope.currentUser;
 			if (comment.usersDisliked.indexOf(user)) {
 				posts.dislikeComment(post, comment);
 				comment.usersDisliked.push(user);
 			} else {
-				posts.dislikeComment(post, comment);
+				posts.undislikeComment(post, comment);
 				var index = comment.usersDisliked.indexOf(user);
 				comment.usersDisliked.splice(index, 1);
 			}
-			
+		};
+
+		$scope.likeTooltipText = function(comment) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (comment.usersLiked.indexOf(user) !== -1) {
+					return "Unlike";
+				} else {
+					return "Like";
+				}
+			} else {
+				return "Log in to like this";
+			}
+		};
+
+		$scope.dislikeTooltipText = function(comment) {
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (comment.usersDisliked.indexOf(user) !== -1) {
+					return "Undislike";
+				} else {
+					return "Dislike";
+				}
+			} else {
+				return "Log in to dislike this";
+			}
 		};
 
 		$scope.deleteComment = function(post, comment) {

@@ -145,7 +145,7 @@ router
 		});
 	})
 
-	.post('/posts/:post/comments/:comment/like', auth, function(req, res, next){
+	.put('/posts/:post/comments/:comment/like', auth, function(req, res, next){
 		if (req.comment.usersLiked.indexOf(req.payload.username) === -1) {
 			req.comment.usersLiked.push(req.payload.username);
 			req.comment.save(function(err, comment){
@@ -158,7 +158,16 @@ router
 		}
 	})
 
-	.post('/posts/:post/comments/:comment/dislike', auth, function(req, res, next){
+	.put('/posts/:post/comments/:comment/unlike', auth, function(req, res, next){
+		var index = req.comment.usersLiked.indexOf(req.payload.username);
+		req.comment.usersLiked.splice(index, 1);
+		req.comment.save(function(err, comment){
+			if (err) return next(err);
+			res.json(req.payload.username);
+		});
+	})
+
+	.put('/posts/:post/comments/:comment/dislike', auth, function(req, res, next){
 		if (req.comment.usersDisliked.indexOf(req.payload.username) === -1) {
 			req.comment.usersDisliked.push(req.payload.username);
 			req.comment.save(function(err, comment){
@@ -169,6 +178,15 @@ router
 		else {
 			res.status(400).json({error: "You can vote only once"});
 		}
+	})
+
+	.put('/posts/:post/comments/:comment/undislike', auth, function(req, res, next){
+		var index = req.comment.usersDisliked.indexOf(req.payload.username);
+		req.comment.usersDisliked.splice(index, 1);
+		req.comment.save(function(err, comment){
+			if (err) return next(err);
+			res.json(req.payload.username);
+		});
 	})
 
 	.put('/posts/:post/comments/:comment/save', auth, function(req, res, next){

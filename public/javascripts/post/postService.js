@@ -116,23 +116,27 @@ angular.module("mySocial.post.service", [])
 		};
 
 		postService.likeComment = function(post, comment) {
-			return $http.post('/posts/' + post._id + '/comments/' + comment._id + '/like', null, {
+			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/like', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})/*.success(function(data){
-				if (!data.error) {
-					comment.usersLiked.push(data);
-				}
-			})*/;
+			});
+		};
+
+		postService.unlikeComment = function(post, comment) {
+			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/unlike', null, {
+				headers: {Authorization: "Bearer " + auth.getToken()}
+			});
 		};
 
 		postService.dislikeComment = function(post, comment) {
-			return $http.post('/posts/' + post._id + '/comments/' + comment._id + '/dislike', null, {
+			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/dislike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})/*.success(function(data){
-				if (!data.error) {
-					comment.usersDisliked.push(data);
-				}
-			})*/;
+			});
+		};
+
+		postService.undislikeComment = function(post, comment) {
+			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/undislike', null, {
+				headers: {Authorization: "Bearer " + auth.getToken()}
+			});
 		};
 
 		return postService;

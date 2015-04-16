@@ -21,9 +21,9 @@
 <div class="col-xs-11 col-xs-offset-1">
 	<div ng-repeat="comment in post.comments" ng-mouseover="canEditAndDelete=true" ng-mouseleave="canEditAndDelete=false">
 		<p ng-controller="NavCtrl">
-			<span class="glyphicon glyphicon-thumbs-up" ng-click="like_unlikeComment(comment)"></span>
+			<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(comment)}}" ng-click="like_unlikeComment(post, comment)"></span>
 			{{comment.usersLiked.length}} &nbsp;
-			<span class="glyphicon glyphicon-thumbs-down" ng-click="dislike_undislikeComment(comment)"></span>
+			<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(comment)}}" ng-click="dislike_undislikeComment(post, comment)"></span>
 			{{comment.usersDisliked.length}} &nbsp;
 			{{comment.body}}
 			<span class="small">

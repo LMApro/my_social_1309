@@ -28,8 +28,9 @@ angular.module("mySocial.main.controller", [])
 			}
 		};
 
-		$scope.like_unlike = function(post, user) {
+		$scope.like_unlike = function(post) {
 			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
 				if (post.usersLiked.indexOf(user) === -1) {
 					posts.like(post);
 					post.usersLiked.push(user);
@@ -43,8 +44,9 @@ angular.module("mySocial.main.controller", [])
 			}
 		};
 
-		$scope.dislike_undislike = function(post, user) {
+		$scope.dislike_undislike = function(post) {
 			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
 				if (post.usersDisliked.indexOf(user) === -1) {
 					posts.dislike(post);
 					post.usersDisliked.push(user);
@@ -90,13 +92,6 @@ angular.module("mySocial.main.controller", [])
 			$scope.link = $scope.editing.current[0].link;
 			$window.scrollTo(0, 0);
 		};
-
-		/*$scope.logNewTitle = function() {
-			console.log($scope.newtitle);
-		};
-		$scope.logTitle = function() {
-			console.log($scope.title);
-		};*/
 
 		$scope.save = function(){
 			
