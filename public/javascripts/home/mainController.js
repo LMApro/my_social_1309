@@ -29,46 +29,58 @@ angular.module("mySocial.main.controller", [])
 		};
 
 		$scope.like_unlike = function(post, user) {
-			if (post.usersLiked.indexOf(user) === -1) {
-				posts.like(post);
-				post.usersLiked.push(user);
-				post.points+=2;
-			} else {
-				posts.unlike(post);
-				var index = post.usersLiked.indexOf(user);
-				post.usersLiked.splice(index, 1);
-				post.points-=2;
+			if (auth.isLoggedIn()) {
+				if (post.usersLiked.indexOf(user) === -1) {
+					posts.like(post);
+					post.usersLiked.push(user);
+					post.points+=2;
+				} else {
+					posts.unlike(post);
+					var index = post.usersLiked.indexOf(user);
+					post.usersLiked.splice(index, 1);
+					post.points-=2;
+				}
 			}
 		};
 
 		$scope.dislike_undislike = function(post, user) {
-			if (post.usersDisliked.indexOf(user) === -1) {
-				posts.dislike(post);
-				post.usersDisliked.push(user);
-				post.points--;
-			} else {
-				posts.undislike(post);
-				var index = post.usersDisliked.indexOf(user);
-				post.usersDisliked.splice(index, 1);
-				post.points++;
+			if (auth.isLoggedIn()) {
+				if (post.usersDisliked.indexOf(user) === -1) {
+					posts.dislike(post);
+					post.usersDisliked.push(user);
+					post.points--;
+				} else {
+					posts.undislike(post);
+					var index = post.usersDisliked.indexOf(user);
+					post.usersDisliked.splice(index, 1);
+					post.points++;
+				}
 			}
 		};
 
 		$scope.likeTooltipText = function(post) {
-			var user = auth.currentUser();
-			if (post.usersLiked.indexOf(user) !== -1) {
-				return "Unlike";
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersLiked.indexOf(user) !== -1) {
+					return "Unlike";
+				} else {
+					return "Like";
+				}
 			} else {
-				return "Like";
+				return "Log in to like this";
 			}
 		};
 
 		$scope.dislikeTooltipText = function(post) {
-			var user = auth.currentUser();
-			if (post.usersDisliked.indexOf(user) !== -1) {
-				return "Undislike";
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				if (post.usersDisliked.indexOf(user) !== -1) {
+					return "Undislike";
+				} else {
+					return "Dislike";
+				}
 			} else {
-				return "Dislike";
+				return "Log in to dislike this";
 			}
 		};
 
