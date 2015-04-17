@@ -1,5 +1,5 @@
 angular.module("mySocial.user.service", [])
-	.factory('user', ['$http', function($http){
+	.factory('user', ['$http', 'auth', function($http, auth){
 		var userService = {
 			users: [],
 		};
@@ -16,6 +16,17 @@ angular.module("mySocial.user.service", [])
 				url: '/users/all'
 			}).success(function(users){
 				angular.copy(users, userService.users);
+			});
+		};
+
+		userService.deleteUser = function(usr) {
+			var index = userService.users.map(function(item){
+				return item.username;
+			}).indexOf(usr.username);
+			userService.users.splice(index, 1);
+
+			return $http.delete('/users/delete/' + usr.username, null, {
+				headers: {Authorization: "Bearer " + auth.getToken()}
 			});
 		};
 

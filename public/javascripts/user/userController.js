@@ -137,6 +137,13 @@ angular.module("mySocial.user.controller", [])
 		};
 
 		$scope.deleteUser = function(usr) {
+			if ($window.confirm("Bạn có chắc chắn muốn xóa người dùng này ra khỏi hệ thống?")) {
+				user.deleteUser(usr);
+				// var index = $scope.users.map(function(item){
+				// 	return item.username;
+				// }).indexOf(usr.username);
+				// $scope.users.splice(index, 1);
+			}
 			
 		};
 

@@ -57,6 +57,9 @@
 		<span class="pull-right small" ng-if="post.canEditAndDelete && post.author===currentUser()">
 			<a href="" ng-click="edit(post)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="delete(post)">Xóa</a>
 		</span>
+		<span class="pull-right small" ng-if="post.canEditAndDelete && post.author!==currentUser() && isAdmin()">
+			<a href="" ng-click="delete(post)">Xóa</a>
+		</span>
 	</p>
 	<hr ng-show="editing.current[0]._id!==post._id">
 </div>
