@@ -52,6 +52,17 @@ router
 			});
 		});
 
+		// delete comments of that user from Comment schema
+		Comment.find({author: req.params.username}, function(err, comments){
+			if (err) return next(err);
+			comments.forEach(function(comment){
+				Comment.remove({author: req.params.username}, function(err){
+					if (err) return next(err);
+				});
+			});
+		});
+
+		// remove comments of that user from comments array in Post schema
 		Comment.find({author: req.params.username}, function(err, comments){
 			if (err) return next(err);
 			comments.forEach(function(comment){
@@ -62,6 +73,7 @@ router
 			});
 		});
 
+		// remove user's like/dislike info
 		Post.find({usersLiked: req.params.username}, function(err, posts){
 			if (err) return next(err);
 			posts.forEach(function(post){
@@ -83,30 +95,21 @@ router
 		Comment.find({usersLiked: req.params.username}, function(err, comments){
 			if (err) return next(err);
 			comments.forEach(function(comment){
-				var index = comment.usersLiked.indexOf(req.params.username);
-				comment.usersLiked.splice(index, 1);
-				comment.save();
+				Comment.update({}, {$pull: {usersLiked: req.params.username}}, {multi: true}, function(err, updated){
+					if (err) return next(err);
+				});
 			});
 		});
 
 		Comment.find({usersDisliked: req.params.username}, function(err, comments){
 			if (err) return next(err);
 			comments.forEach(function(comment){
-				var index = comment.usersDisliked.indexOf(req.params.username);
-				comment.usersLiked.splice(index, 1);
-				comment.save();
-			});
-		});
-
-		Comment.find({author: req.params.username}, function(err, comments){
-			if (err) return next(err);
-			comments.forEach(function(comment){
-				Comment.remove({author: req.params.username}, function(err){
+				Comment.update({}, {$pull: {usersDisliked: req.params.username}}, {multi: true}, function(err, updated){
 					if (err) return next(err);
 				});
 			});
 		});
-		
+
 	});
 
 module.exports = router;
