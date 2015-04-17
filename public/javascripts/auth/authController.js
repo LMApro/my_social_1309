@@ -25,7 +25,6 @@ angular.module("mySocial.auth.controller", [])
             $scope.messages.error = "Mật khẩu chưa khớp!";
          } 
          else {
-         	console.log($scope.user);
             auth
          		.register($scope.user)
          		.error(function(err){

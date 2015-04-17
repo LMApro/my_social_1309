@@ -1,0 +1,11 @@
+<h3>Tìm người dùng</h3>
+<hr>
+<form class="input-group">
+	<input type="text" ng-model="search.user" class="form-control" placeholder="Nhập tên người dùng cần tìm..." typeahead="user for user in getUser($viewValue)" typeahead-template-url="searchResults.html">
+	<span class="input-group-btn"><button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
+</form>
+<script type="text/ng-template" id="searchResults.html">
+	<a href="/#/users/{{match.label}}">
+	   <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+	</a>
+</script>

@@ -1,5 +1,5 @@
 angular.module("mySocial.user.controller", [])
-	.controller('UserCtrl', ['$scope', '$stateParams', 'auth', 'posts', '$window', 'REGEXPS', function($scope, $stateParams, auth, posts, $window, regex){
+	.controller('UserCtrl', ['$scope', '$stateParams', 'auth', 'posts', '$window', 'REGEXPS', 'user', function($scope, $stateParams, auth, posts, $window, regex, user){
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
@@ -127,6 +127,14 @@ angular.module("mySocial.user.controller", [])
 				}).indexOf(post._id);
 				$scope.posts.splice(index, 1);
 			}			
+		};
+
+		$scope.getUser = function(usr) {
+			return user.getUser(usr).then(function(res){
+				return res.data.map(function(item){
+					return item.username;
+				});
+			});
 		};
 
 	}]);

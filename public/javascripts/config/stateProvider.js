@@ -49,7 +49,12 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 				url: '/users/{username}',
 				templateUrl: '/user.html',
 				controller: 'UserCtrl'
-				
+			})
+
+			.state('findUser', {
+				url: '/findUser',
+				templateUrl: '/findUser.html',
+				controller: 'UserCtrl'
 			})
 
 			.state('changePassword', {

@@ -24,6 +24,13 @@ router
 		});
 	})
 
+	.get('/findUser/:user', function(req, res, next){
+		User.find({username: new RegExp(req.params.user)}, function(err, users){
+			if (err) return next(err);
+			res.json(users);
+		});
+	})
+
 	.post('/posts', auth, function(req, res, next){
 		var post = new Post(req.body);
 		post.author = req.payload.username;
