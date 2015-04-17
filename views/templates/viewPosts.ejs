@@ -27,7 +27,7 @@
 </form>
 
 <p ng-show="posts.length==0">Chưa có bài viết nào.</p>
-<div ng-show="posts.length>0" ng-repeat="post in posts | orderBy: '-points'" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">
+<div ng-show="posts.length>0" ng-repeat="post in posts | orderBy: '-date'" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">
 	<p ng-show="editing.current[0]._id!==post._id">
 		<a ng-href="{{post.link | link}}" ng-show="post.link" class="text-primary post" target="_blank">
 			{{post.title}}
@@ -44,7 +44,6 @@
 		<span class="text-muted small">lần cuối cập nhật: {{post.date | date: 'HH:mm, dd/MM/yyyy'}}</span>
 	</p>
 	<p ng-show="editing.current[0]._id!==post._id">
-		<span>{{post.points}} points</span> &nbsp;
 		<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(post)}}" ng-click="like_unlike(post)"></span>
 			{{post.usersLiked.length}} &nbsp;
 		<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(post)}}" ng-click="dislike_undislike(post)"></span>

@@ -10,7 +10,7 @@ angular.module("mySocial.auth.controller", [])
          	$scope.messages.error = "Bạn chưa nhập Tên người dùng!";
          } 
          else if (!USER_REGEX.test($scope.user.username)) {
-            $scope.messages.error = "Tên người dùng từ 5 đến 20 kí tự và không chứa khoảng trắng và kí tự đặc biệt!";
+            $scope.messages.error = "Tên người dùng từ 5 đến 20 kí tự, không chứa khoảng trắng và kí tự đặc biệt (\\ / ` \" ' # ~)!";
          } 
          else if (!$scope.user.password) {
          	$scope.messages.error = "Bạn chưa nhập mật khẩu (ít nhất 8 kí tự)!";

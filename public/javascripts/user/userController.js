@@ -1,5 +1,5 @@
 angular.module("mySocial.user.controller", [])
-	.controller('UserCtrl', ['$scope', '$stateParams', 'auth', 'posts', '$window', 'REGEXPS', 'user', function($scope, $stateParams, auth, posts, $window, regex, user){
+	.controller('UserCtrl', ['$scope', '$stateParams', '$state', 'auth', 'posts', '$window', 'REGEXPS', 'user', function($scope, $stateParams, $state, auth, posts, $window, regex, user){
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
@@ -82,7 +82,6 @@ angular.module("mySocial.user.controller", [])
 		};
 
 		$scope.save = function() {
-			// console.log("saved");
 			if (!$scope.title && !$scope.link) {
 				if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 					posts.delete($scope.editing.current[0]);
@@ -135,6 +134,10 @@ angular.module("mySocial.user.controller", [])
 					return item.username;
 				});
 			});
+		};
+
+		$scope.goto = function(usr) {
+			$state.go("user", {username: usr});
 		};
 
 	}]);

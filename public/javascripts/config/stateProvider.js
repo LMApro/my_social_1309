@@ -48,7 +48,12 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 			.state('user', {
 				url: '/users/{username}',
 				templateUrl: '/user.html',
-				controller: 'UserCtrl'
+				controller: 'UserCtrl',
+				onEnter: ["$state", '$stateParams', function($state, $stateParams){
+					if (!$stateParams.username) {
+						$state.go("home");
+					}
+				}]
 			})
 
 			.state('findUser', {
