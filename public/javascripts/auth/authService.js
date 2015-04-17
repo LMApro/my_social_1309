@@ -25,8 +25,16 @@ angular.module("mySocial.auth.service", [])
 			if (authService.isLoggedIn()) {
 				var token = authService.getToken();
 				var payload = JSON.parse($window.atob(token.split('.')[1]));
-
 				return payload.username;
+			}
+		};
+
+		authService.isAdmin = function(){
+			if (authService.isLoggedIn()) {
+				var token = authService.getToken();
+				var payload = JSON.parse($window.atob(token.split('.')[1]));
+				
+				return payload.isAdmin;
 			}
 		};
 

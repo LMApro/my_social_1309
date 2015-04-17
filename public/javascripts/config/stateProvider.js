@@ -62,6 +62,22 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 				controller: 'UserCtrl'
 			})
 
+			.state('listUser', {
+				url: '/listUser',
+				templateUrl: '/listUser.html',
+				controller: 'UserCtrl',
+				resolve: {
+					userPromise: ['user', function(user){
+						return user.getAllUser();
+					}]
+				},
+				onEnter: ['$state', 'auth', function($state, auth){
+					if ( !auth.isLoggedIn() || (auth.isLoggedIn() && !auth.isAdmin()) ) {
+						$state.go("home");
+					}
+				}]
+			})
+
 			.state('changePassword', {
 				url: '/changePassword',
 				templateUrl: '/changePassword.html',

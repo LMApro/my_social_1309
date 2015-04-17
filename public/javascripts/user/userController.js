@@ -5,9 +5,9 @@ angular.module("mySocial.user.controller", [])
 		$scope.logOut = auth.logOut;
 		$scope.posts = [];
 		$scope.username = $stateParams.username;
+		$scope.users = user.users;
 		$scope.editing = {};
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
-
 
 		posts.getPostsByUser($scope.username).success(function(data){
 			data.forEach(function(post){
@@ -128,12 +128,16 @@ angular.module("mySocial.user.controller", [])
 			}			
 		};
 
-		$scope.getUser = function(usr) {
-			return user.getUser(usr).then(function(res){
+		$scope.findUser = function(usr) {
+			return user.findUser(usr).then(function(res){
 				return res.data.map(function(item){
 					return item.username;
 				});
 			});
+		};
+
+		$scope.deleteUser = function(usr) {
+			
 		};
 
 		$scope.goto = function(usr) {

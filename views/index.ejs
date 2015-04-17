@@ -18,11 +18,12 @@
 				        </li>
 				        <li dropdown is-open="status.isopen">
 					      <a href="" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-					        {{currentUser()}} <span class="caret"></span>
+					        {{currentUser()}} <span ng-if="isAdmin()">(admin)</span> <span class="caret"></span>
 					      </a>
 					      <ul class="dropdown-menu" role="menu">
 					        <li><a ng-href="/#/users/{{currentUser()}}">Bài viết của bạn</a></li>
 				            <li><a ng-href="/#/changePassword">Thay đổi mật khẩu</a></li>
+				            <li ng-if="isAdmin()"><a ng-href="/#/listUser">Xem danh sách người dùng</a></li>
 				            <li class="divider"></li>
 				            <li><a href="" ng-click="logOut()">Đăng xuất</a></li>
 					      </ul>

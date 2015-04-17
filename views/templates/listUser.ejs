@@ -1,0 +1,10 @@
+<h3>Danh sách người dùng</h3>
+<hr>
+<div ng-repeat="user in users | orderBy: 'username'" ng-mouseover="admin.canDeleteUser=true" ng-mouseleave="admin.canDeleteUser=false">
+	<p>
+		<a ng-href="/#/users/{{user.username}}">{{user.username}}</a>
+		<span class="pull-right small" ng-if="user.isAdmin">Admin</span>
+		<span class="pull-right small" ng-if="!user.isAdmin && admin.canDeleteUser"><a href="" ng-click="deleteUser(user)">Xóa người dùng</a></span>
+	</p>
+	<hr>
+</div>

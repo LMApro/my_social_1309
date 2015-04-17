@@ -4,6 +4,7 @@ angular.module("mySocial.main.controller", [])
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
+		$scope.isAdmin = auth.isAdmin;
 		$scope.posts = posts.posts;
 		$scope.error = '';
 		$scope.editing = {};
@@ -132,5 +133,7 @@ angular.module("mySocial.main.controller", [])
 				posts.delete(post);
 			}			
 		};
+
+
 
 	}]);
