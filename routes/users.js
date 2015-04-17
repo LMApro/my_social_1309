@@ -52,19 +52,31 @@ router
 			});
 		});
 
+		Comment.find({author: req.params.username}, function(err, comments){
+			if (err) return next(err);
+			comments.forEach(function(comment){
+				Post.update({comments: comment._id}, {$pull: {comments: comment._id}}, {multi: true}, function(err, updated){
+					if (err) return next(err);
+					console.log(updated);
+				});
+			});
+		});
+
 		Post.find({usersLiked: req.params.username}, function(err, posts){
 			if (err) return next(err);
 			posts.forEach(function(post){
-				var index = post.usersLiked.indexOf(req.params.username);
-				post.usersLiked.splice(index, 1);
+				Post.update({}, {$pull: {usersLiked: req.params.username}}, {multi: true}, function(err, updated){
+					if (err) return next(err);
+				});
 			});
 		});
 
 		Post.find({usersDisliked: req.params.username}, function(err, posts){
 			if (err) return next(err);
 			posts.forEach(function(post){
-				var index = post.usersDisliked.indexOf(req.params.username);
-				post.usersLiked.splice(index, 1);
+				Post.update({}, {$pull: {usersDisliked: req.params.username}}, {multi: true}, function(err, updated){
+					if (err) return next(err);
+				});
 			});
 		});
 
@@ -73,6 +85,7 @@ router
 			comments.forEach(function(comment){
 				var index = comment.usersLiked.indexOf(req.params.username);
 				comment.usersLiked.splice(index, 1);
+				comment.save();
 			});
 		});
 
@@ -81,6 +94,7 @@ router
 			comments.forEach(function(comment){
 				var index = comment.usersDisliked.indexOf(req.params.username);
 				comment.usersLiked.splice(index, 1);
+				comment.save();
 			});
 		});
 
