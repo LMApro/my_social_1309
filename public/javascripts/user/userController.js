@@ -120,10 +120,5 @@ angular.module("mySocial.user.viewposts.controller", [])
 				$scope.posts.splice(index, 1);
 			}			
 		};
-
-		
-
-		
-
 		
 	}]);
