@@ -1,5 +1,5 @@
 <form ng-show="isLoggedIn() && !editing.current[1]" class="addPost">
-	<textarea class="form-control" type="text" placeholder="Chia sẻ điều gì đó..." ng-model="newtitle" ng-keyup="logNewTitle()" rows="3"></textarea>
+	<textarea autofocus class="form-control" type="text" placeholder="Chia sẻ điều gì đó..." ng-model="newtitle" ng-keyup="logNewTitle()" rows="3"></textarea>
 	<br>
 	<div class="input-group">
 		<input class="form-control" type="text" placeholder="URL (nếu có)" ng-model="newlink">

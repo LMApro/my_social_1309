@@ -5,6 +5,7 @@ angular.module("mySocial.post.viewcomments.controller", [])
 		$scope.button = { name: 'Comment' };
 		$scope.currentComment = {};
 		$scope.currentUser = auth.currentUser;
+		$scope.currentPage = 1;
 
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.addComment = function(){
@@ -13,7 +14,7 @@ angular.module("mySocial.post.viewcomments.controller", [])
 					body: $scope.body,
 					date: new Date()
 				}).success(function(comment){
-					$scope.post.comments.push(comment);
+					$scope.post.comments.splice(0, 0, comment);
 				});
 				$scope.error = null;
 			} else {
@@ -82,6 +83,11 @@ angular.module("mySocial.post.viewcomments.controller", [])
 			$scope.button.name = 'Save';
 			$scope.body = comment.body;
 			$scope.currentComment = comment;
+			
+			var heightStr = angular.element(document.body.scrollHeight).toString();
+			var height = parseInt(heightStr.substr(1, heightStr.length - 2));
+			$window.scrollTo(0, height);
+			document.querySelector('#commentInput').select();
 		};
 
 		$scope.save = function(post, comment){
@@ -103,6 +109,10 @@ angular.module("mySocial.post.viewcomments.controller", [])
 		$scope.reset = function(){
 			$scope.body = '';
 			$scope.button.name = 'Comment';
+		};
+
+		$scope.moveToTop = function() {
+			$window.scrollTo(0, 0);
 		};
 		
 	}]);

@@ -16,12 +16,7 @@ router
 	})
 
 	.get('/posts', function(req, res, next){
-		/*Post.find(function(err, posts){
-			if (err) {
-				return next(err); 
-			}
-			res.json(posts);
-		});*/
+
 		Post.find({}).sort('-date').exec(function(err, posts){
 			if (err) {
 				return next(err); 
@@ -87,7 +82,7 @@ router
 		comment.author = req.payload.username;
 		comment.save(function(err, comment){
 			if (err) return next(err);
-			req.post.comments.push(comment);
+			req.post.comments.splice(0, 0, comment);
 			req.post.save(function(err, post){
 				if (err) return next(err);
 				res.json(comment);

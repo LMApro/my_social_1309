@@ -18,28 +18,30 @@
 </div>
 
 <div class="col-xs-11 col-xs-offset-1">
-	<div ng-repeat="comment in post.comments" ng-mouseover="canEditAndDelete=true" ng-mouseleave="canEditAndDelete=false">
-		<p>
-			<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(comment)}}" ng-click="like_unlikeComment(post, comment)"></span>
-			{{comment.usersLiked.length}} &nbsp;
-			<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(comment)}}" ng-click="dislike_undislikeComment(post, comment)"></span>
-			{{comment.usersDisliked.length}} &nbsp;
-			{{comment.body}}
-		</p>
-		<p>
-			<span class="small">
-				<span class="text-muted"> đăng bởi</span> 
-				<span ng-if="comment.author!==currentUser()"><a ng-href="/#/users/{{comment.author}}">{{comment.author}}</a>,</span>
-				<span ng-if="comment.author===currentUser()" class="text-muted"><a href="/#/users/{{currentUser()}}">bạn</a>,</span>
-			</span>
-			<span class="small text-muted">lần cuối cập nhật: {{comment.date | date: 'HH:mm, dd/MM/yyyy' }}</span>
-			<span class="pull-right small" ng-if="comment.author===currentUser() && canEditAndDelete">
-				<a href="" ng-click="editComment(post, comment)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Xóa</a>
-			</span>
-		</p>
-		
-		<hr>
-	</div>
+	<ul class="list-unstyled">
+		<li dir-paginate="comment in post.comments | itemsPerPage:10" ng-mouseover="canEditAndDelete=true" ng-mouseleave="canEditAndDelete=false">
+			<p>
+				<span class="glyphicon glyphicon-thumbs-up" tooltip="{{likeTooltipText(comment)}}" ng-click="like_unlikeComment(post, comment)"></span>
+				{{comment.usersLiked.length}} &nbsp;
+				<span class="glyphicon glyphicon-thumbs-down" tooltip="{{dislikeTooltipText(comment)}}" ng-click="dislike_undislikeComment(post, comment)"></span>
+				{{comment.usersDisliked.length}} &nbsp;
+				{{comment.body}}
+			</p>
+			<p>
+				<span class="small">
+					<span class="text-muted"> đăng bởi</span> 
+					<span ng-if="comment.author!==currentUser()"><a ng-href="/#/users/{{comment.author}}">{{comment.author}}</a>,</span>
+					<span ng-if="comment.author===currentUser()" class="text-muted"><a href="/#/users/{{currentUser()}}">bạn</a>,</span>
+				</span>
+				<span class="small text-muted">lần cuối cập nhật: {{comment.date | date: 'HH:mm, dd/MM/yyyy' }}</span>
+				<span class="pull-right small" ng-if="comment.author===currentUser() && canEditAndDelete">
+					<a href="" ng-click="editComment(post, comment)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Xóa</a>
+				</span>
+			</p>
+			<hr>
+		</li>
+	</ul>
+	<dir-pagination-controls boundary-links="true" on-page-change="moveToTop()" template-url="/javascripts/helper/dirPaginate.tpl.html"></dir-pagination-controls>
 </div>
 
 <div ng-hide="isLoggedIn()">
@@ -47,7 +49,7 @@
 </div>
 
 <form class="input-group" ng-show="isLoggedIn()" style="margin-top: 30px;">
-	<input type="text" class="form-control" placeholder="Viết bình luận..." ng-model="body">
+	<input type="text" class="form-control" placeholder="Viết bình luận..." ng-model="body" id="commentInput">
 	<span class="input-group-btn" ng-if="button.name==='Comment'"><button class="btn btn-primary" ng-click="addComment()">Bình luận</button></span>
 	<span class="input-group-btn" ng-if="button.name==='Save'">
 		<button class="btn btn-primary" ng-click="save(post, comment)">Lưu</button>
