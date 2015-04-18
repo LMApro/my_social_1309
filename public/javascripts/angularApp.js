@@ -1,5 +1,6 @@
 angular.module("mySocial", [
 	'ui.bootstrap',
+	"angularUtils.directives.dirPagination",
 	"mySocial.config.stateProvider",
 	"mySocial.constants",
 	"mySocial.filters",

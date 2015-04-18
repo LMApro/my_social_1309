@@ -16,7 +16,13 @@ router
 	})
 
 	.get('/posts', function(req, res, next){
-		Post.find(function(err, posts){
+		/*Post.find(function(err, posts){
+			if (err) {
+				return next(err); 
+			}
+			res.json(posts);
+		});*/
+		Post.find({}).sort('-date').exec(function(err, posts){
 			if (err) {
 				return next(err); 
 			}
@@ -69,7 +75,7 @@ router
 	})
 
 	.get('/posts/user/:username', function(req, res, next){
-		Post.find({ author: req.params.username }, function(err, posts){
+		Post.find({ author: req.params.username }).sort('-date').exec(function(err, posts){
 			if (err) return next(err);
 			res.json(posts);
 		});

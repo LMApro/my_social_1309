@@ -3,8 +3,10 @@ angular.module("mySocial.user.viewposts.controller", [])
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
-		$scope.posts = userPosts;
+		$scope.allposts = userPosts;
 		$scope.username = $stateParams.username;
+		$scope.currentPage = 1;
+		$scope.postsPerPage = 10;
 
 		$scope.editing = {};
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
@@ -94,12 +96,12 @@ angular.module("mySocial.user.viewposts.controller", [])
 				};
 				
 				posts.save(updatedPost);
-				var index = $scope.posts.map(function(item){
+				var index = $scope.allposts.map(function(item){
 					return item._id;
 				}).indexOf($scope.editing.current[0]._id);
-				$scope.posts[index].title = updatedPost.title;
-				$scope.posts[index].link = updatedPost.link;
-				$scope.posts[index].date = updatedPost.date;
+				$scope.allposts[index].title = updatedPost.title;
+				$scope.allposts[index].link = updatedPost.link;
+				$scope.allposts[index].date = updatedPost.date;
 				$scope.editing = {};
 				$scope.error = '';
 			}
@@ -114,10 +116,10 @@ angular.module("mySocial.user.viewposts.controller", [])
 		$scope.delete = function(post) {
 			if ($window.confirm("Có phải bạn muốn xóa bài viết này?")) {
 				posts.delete(post);
-				var index = $scope.posts.map(function(item){
+				var index = $scope.allposts.map(function(item){
 					return item._id;
 				}).indexOf(post._id);
-				$scope.posts.splice(index, 1);
+				$scope.allposts.splice(index, 1);
 			}			
 		};
 		

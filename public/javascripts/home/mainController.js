@@ -5,7 +5,11 @@ angular.module("mySocial.home.viewposts.controller", [])
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
 		$scope.isAdmin = auth.isAdmin;
-		$scope.posts = posts.posts;
+		$scope.allposts = posts.posts;
+
+		$scope.postsPerPage = 10;
+		$scope.currentPage = 1;
+		
 		$scope.error = '';
 		$scope.editing = {};
 		$scope.currentLike = false;
@@ -27,6 +31,10 @@ angular.module("mySocial.home.viewposts.controller", [])
 				$scope.newlink = '';
 				$scope.error = '';
 			}
+		};
+
+		$scope.moveToTop = function() {
+			$window.scrollTo(0, 0);
 		};
 
 		$scope.like_unlike = function(post) {
@@ -91,7 +99,7 @@ angular.module("mySocial.home.viewposts.controller", [])
 			$scope.editing.current = [post, true];
 			$scope.title = $scope.editing.current[0].title;
 			$scope.link = $scope.editing.current[0].link;
-			$window.scrollTo(0, 0);
+			$scope.moveToTop();
 		};
 
 		$scope.save = function(){

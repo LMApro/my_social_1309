@@ -25,7 +25,7 @@ angular.module("mySocial.post.service", [])
 			return $http.post('/posts', post, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			}).success(function(data){
-				postService.posts.push(data);
+				postService.posts.splice(0, 0, data);
 			});
 		};
 
