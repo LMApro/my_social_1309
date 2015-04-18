@@ -1,7 +1,7 @@
 angular.module("mySocial.user.find.controller", [])
 	.controller('FindUserCtrl', ['$scope', 'user', function($scope, user){
 		$scope.users = user.users;
-		
+
 		$scope.findUser = function(usr) {
 			return user.findUser(usr).then(function(res){
 				return res.data.map(function(item){
@@ -17,12 +17,7 @@ angular.module("mySocial.user.find.controller", [])
 		$scope.deleteUser = function(usr) {
 			if ($window.confirm("Bạn có chắc chắn muốn xóa người dùng này ra khỏi hệ thống?")) {
 				user.deleteUser(usr);
-				// var index = $scope.users.map(function(item){
-				// 	return item.username;
-				// }).indexOf(usr.username);
-				// $scope.users.splice(index, 1);
 			}
-			
 		};
 
 	}]);
