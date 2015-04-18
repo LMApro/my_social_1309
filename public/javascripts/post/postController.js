@@ -1,4 +1,4 @@
-angular.module("mySocial.post.controller", [])
+angular.module("mySocial.post.viewcomments.controller", [])
 	.controller("PostsCtrl", ["$scope", "posts", "post", 'auth', '$window', function($scope, posts, post, auth, $window){
 		$scope.post = post;
 		$scope.error = '';

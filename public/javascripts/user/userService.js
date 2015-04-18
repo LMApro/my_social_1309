@@ -3,10 +3,13 @@ angular.module("mySocial.user.service", [])
 		var userService = {
 			users: [],
 		};
+		
 		userService.findUser = function(usr) {
 			return $http({
 				method: 'GET',
 				url: '/users/findUser/' + usr
+			}).then(function(res){
+				return res.data;
 			});
 		};
 

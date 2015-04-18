@@ -1,20 +1,13 @@
-angular.module("mySocial.user.controller", [])
-	.controller('UserCtrl', ['$scope', '$stateParams', '$state', 'auth', 'posts', '$window', 'REGEXPS', 'user', function($scope, $stateParams, $state, auth, posts, $window, regex, user){
+angular.module("mySocial.user.viewposts.controller", [])
+	.controller('UserCtrl', ['$scope', '$stateParams', '$state', 'auth', 'posts', 'userPosts', '$window', 'REGEXPS', function($scope, $stateParams, $state, auth, posts, userPosts, $window, regex){
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;
-		$scope.posts = [];
+		$scope.posts = userPosts;
 		$scope.username = $stateParams.username;
-		$scope.users = user.users;
+
 		$scope.editing = {};
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
-
-		posts.getPostsByUser($scope.username).success(function(data){
-			data.forEach(function(post){
-				$scope.posts.push(post);
-			});
-		});
-
 
 		$scope.like_unlike = function(post) {
 			if (auth.isLoggedIn()) {
@@ -128,27 +121,9 @@ angular.module("mySocial.user.controller", [])
 			}			
 		};
 
-		$scope.findUser = function(usr) {
-			return user.findUser(usr).then(function(res){
-				return res.data.map(function(item){
-					return item.username;
-				});
-			});
-		};
+		
 
-		$scope.deleteUser = function(usr) {
-			if ($window.confirm("Bạn có chắc chắn muốn xóa người dùng này ra khỏi hệ thống?")) {
-				user.deleteUser(usr);
-				// var index = $scope.users.map(function(item){
-				// 	return item.username;
-				// }).indexOf(usr.username);
-				// $scope.users.splice(index, 1);
-			}
-			
-		};
+		
 
-		$scope.goto = function(usr) {
-			$state.go("user", {username: usr});
-		};
-
+		
 	}]);

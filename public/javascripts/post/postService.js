@@ -10,8 +10,8 @@ angular.module("mySocial.post.service", [])
 		};
 
 		postService.getPostsByUser = function(username) {
-			return $http.get('/posts/user/' + username).success(function(posts){
-				return posts;
+			return $http.get('/posts/user/' + username).then(function(response){
+				return response.data;
 			});
 		};
 

@@ -4,14 +4,14 @@ angular.module("mySocial", [
 	"mySocial.constants",
 	"mySocial.filters",
 	"mySocial.auth.service",
-	"mySocial.post.service",
-	"mySocial.post.controller",
-	"mySocial.main.controller",
-	"mySocial.user.controller",
-	"mySocial.user.service",
 	"mySocial.auth.controller",
-	"mySocial.nav.controller"
-	
+	"mySocial.post.service",
+	"mySocial.post.viewcomments.controller",
+	"mySocial.home.viewposts.controller",
+	"mySocial.home.nav.controller",
+	"mySocial.user.service",
+	"mySocial.user.viewposts.controller",
+	"mySocial.user.find.controller"
 	]);
 	
 	

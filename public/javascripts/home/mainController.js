@@ -1,4 +1,4 @@
-angular.module("mySocial.main.controller", [])
+angular.module("mySocial.home.viewposts.controller", [])
 	.controller("MainCtrl", ["$scope", "$window", "posts", 'auth', 'REGEXPS', function($scope, $window, posts, auth, regex){
 		
 		$scope.isLoggedIn = auth.isLoggedIn;

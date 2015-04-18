@@ -53,19 +53,25 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 					if (!$stateParams.username) {
 						$state.go("home");
 					}
-				}]
+				}],
+				resolve: {
+					userPosts: ['posts', '$stateParams', function(posts, $stateParams){
+						return posts.getPostsByUser($stateParams.username);
+					}]
+				}
 			})
 
 			.state('findUser', {
 				url: '/findUser',
 				templateUrl: '/findUser.html',
-				controller: 'UserCtrl'
+				controller: 'FindUserCtrl'
+
 			})
 
 			.state('listUser', {
 				url: '/listUser',
 				templateUrl: '/listUser.html',
-				controller: 'UserCtrl',
+				controller: 'FindUserCtrl',
 				resolve: {
 					userPromise: ['user', function(user){
 						return user.getAllUser();
