@@ -1,4 +1,4 @@
-angular.module("mySocial.home.nav.controller", [])
+angular.module("myNetwork.home.nav.controller", [])
 	.controller('NavCtrl', ['$scope', 'auth', function($scope, auth){
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;

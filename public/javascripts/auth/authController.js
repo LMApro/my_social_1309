@@ -1,4 +1,4 @@
-angular.module("mySocial.auth.controller", [])
+angular.module("myNetwork.auth.controller", [])
 	.controller('AuthCtrl', ['$scope', '$state', 'auth', 'REGEXPS', function($scope, $state, auth, regex){
 		$scope.user = {};
 		$scope.messages = {};

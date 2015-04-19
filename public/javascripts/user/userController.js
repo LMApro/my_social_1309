@@ -1,5 +1,5 @@
-angular.module("mySocial.user.viewposts.controller", [])
-	.controller('UserCtrl', ['$scope', '$stateParams', '$state', 'auth', 'posts', 'userPosts', '$window', 'REGEXPS', function($scope, $stateParams, $state, auth, posts, userPosts, $window, regex){
+angular.module("myNetwork.user.viewposts.controller", [])
+	.controller('ViewUserPostsCtrl', ['$scope', '$stateParams', '$state', 'auth', 'posts', 'userPosts', '$window', 'REGEXPS', function($scope, $stateParams, $state, auth, posts, userPosts, $window, regex){
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
 		$scope.logOut = auth.logOut;

@@ -1,5 +1,5 @@
-angular.module("mySocial.post.viewcomments.controller", [])
-	.controller("PostsCtrl", ["$scope", "posts", "post", 'auth', '$window', function($scope, posts, post, auth, $window){
+angular.module("myNetwork.post.viewcomments.controller", [])
+	.controller("ViewCommentsCtrl", ["$scope", "posts", "post", 'auth', '$window', function($scope, posts, post, auth, $window){
 		$scope.post = post;
 		$scope.error = '';
 		$scope.button = { name: 'Comment' };

@@ -1,4 +1,4 @@
-angular.module("mySocial.constants", [])
+angular.module("myNetwork.constants", [])
 	.constant('REGEXPS', {
 		VALID_LINK_REQUIRED_PROTOCOL: /^((https|http|ftp)\:\/\/)([w|W]{3}\.)?[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?((\/[a-zA-Z0-9]*)+(\.[a-zA-Z0-9]{2,4}))?/,
 		VALID_LINK_NOT_REQUIRED_PROTOCOL: /^((https|http|ftp)\:\/\/)?([w|W]{3}\.)?[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?((\/[a-zA-Z0-9]*)+(\.[a-zA-Z0-9]{2,4}))?/,

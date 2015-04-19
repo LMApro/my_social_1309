@@ -1,10 +1,10 @@
-angular.module("mySocial.config.stateProvider", ['ui.router'])
+angular.module("myNetwork.config.stateProvider", ['ui.router'])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider){
 		$stateProvider
 			.state('home', {
 				url: "/home",
 				templateUrl: "/home.html",
-				controller: "MainCtrl",
+				controller: "ViewPostsCtrl",
 				resolve: {
 					postPromise: ['posts', function(posts){
 						return posts.getAll();
@@ -15,7 +15,7 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 			.state('posts', {
 				url: "/posts/{id}",
 				templateUrl: "/posts.html",
-				controller: "PostsCtrl",
+				controller: "ViewCommentsCtrl",
 				resolve: {
 					post: ['$stateParams', 'posts', function($stateParams, posts){
 						return posts.get($stateParams.id);
@@ -48,7 +48,7 @@ angular.module("mySocial.config.stateProvider", ['ui.router'])
 			.state('user', {
 				url: '/users/{username}',
 				templateUrl: '/user.html',
-				controller: 'UserCtrl',
+				controller: 'ViewUserPostsCtrl',
 				onEnter: ["$state", '$stateParams', function($state, $stateParams){
 					if (!$stateParams.username) {
 						$state.go("home");

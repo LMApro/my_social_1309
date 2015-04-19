@@ -1,4 +1,4 @@
-angular.module("mySocial.filters", [])
+angular.module("myNetwork.filters", [])
 	.filter('link', ['REGEXPS', function(regex){
 		return function(link){
 			var VALID_LINK = regex.VALID_LINK_REQUIRED_PROTOCOL;

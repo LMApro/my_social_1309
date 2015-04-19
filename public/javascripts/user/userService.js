@@ -1,4 +1,4 @@
-angular.module("mySocial.user.service", [])
+angular.module("myNetwork.user.service", [])
 	.factory('user', ['$http', 'auth', function($http, auth){
 		var userService = {
 			users: [],

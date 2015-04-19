@@ -1,5 +1,5 @@
-angular.module("mySocial.home.viewposts.controller", [])
-	.controller("MainCtrl", ["$scope", "$window", "posts", 'auth', 'REGEXPS', function($scope, $window, posts, auth, regex){
+angular.module("myNetwork.home.viewposts.controller", [])
+	.controller("ViewPostsCtrl", ["$scope", "$window", "posts", 'auth', 'REGEXPS', function($scope, $window, posts, auth, regex){
 		
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;

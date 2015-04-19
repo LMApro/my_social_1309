@@ -1,4 +1,4 @@
-angular.module("mySocial.user.find.controller", [])
+angular.module("myNetwork.user.find.controller", [])
 	.controller('FindUserCtrl', ['$scope', 'user', '$state', '$window', function($scope, user, $state, $window){
 		$scope.users = user.users;
 		$scope.messages = {};

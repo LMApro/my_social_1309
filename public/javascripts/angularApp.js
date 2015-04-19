@@ -1,18 +1,19 @@
-angular.module("mySocial", [
+angular.module("myNetwork", [
 	'ui.bootstrap',
+	'ui.router',
 	"angularUtils.directives.dirPagination",
-	"mySocial.config.stateProvider",
-	"mySocial.constants",
-	"mySocial.filters",
-	"mySocial.auth.service",
-	"mySocial.auth.controller",
-	"mySocial.post.service",
-	"mySocial.post.viewcomments.controller",
-	"mySocial.home.viewposts.controller",
-	"mySocial.home.nav.controller",
-	"mySocial.user.service",
-	"mySocial.user.viewposts.controller",
-	"mySocial.user.find.controller"
+	"myNetwork.config.stateProvider",
+	"myNetwork.constants",
+	"myNetwork.filters",
+	"myNetwork.auth.service",
+	"myNetwork.auth.controller",
+	"myNetwork.post.service",
+	"myNetwork.post.viewcomments.controller",
+	"myNetwork.home.viewposts.controller",
+	"myNetwork.home.nav.controller",
+	"myNetwork.user.service",
+	"myNetwork.user.viewposts.controller",
+	"myNetwork.user.find.controller"
 	]);
 	
 	

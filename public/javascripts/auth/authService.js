@@ -1,4 +1,4 @@
-angular.module("mySocial.auth.service", [])
+angular.module("myNetwork.auth.service", [])
 	.factory('auth', ['$http', '$window', '$state', function($http, $window, $state){
 		var authService = {};
 		
