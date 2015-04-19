@@ -9,7 +9,7 @@
 			<span ng-if="post.author!==currentUser()" class="small"><a ng-href="/#/users/{{post.author}}">{{post.author}}</a>,</span>
 			<span ng-if="post.author===currentUser()" class="small"><a ng-href="/#/users/{{currentUser()}}">bạn</a>,</span>
 		</span>
-		<span class="text-muted small">lần cuối cập nhật: {{post.date | date: 'HH:mm - MMM dd, yyyy'}}</span>
+		<span class="text-muted small">lần cuối cập nhật: {{post.date | date: 'HH:mm, dd/MM/yyyy'}}</span>
 		<span class="pull-right small">
 			<span ng-if="post.comments.length==0">Chưa có bình luận nào!</span>
 			<span ng-if="post.comments.length>0">{{ post.comments.length + ' bình luận' }}</span>

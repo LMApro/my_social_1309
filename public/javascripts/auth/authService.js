@@ -39,13 +39,13 @@ angular.module("mySocial.auth.service", [])
 		};
 
 		authService.register = function(user) {
-			return $http.post('/register', user).success(function(data){
+			return $http.post('/users/register', user).success(function(data){
 				authService.saveToken(data.token);
 			});
 		};
 		
 		authService.logIn = function(user) {
-			return $http.post('/login', user).success(function(data){
+			return $http.post('/users/login', user).success(function(data){
 				authService.saveToken(data.token);
 			});
 		};
@@ -56,7 +56,7 @@ angular.module("mySocial.auth.service", [])
 		};
 
 		authService.changePassword = function(user) {
-			return $http.post('/changePassword', user).success(function(data){
+			return $http.put('/users/changePassword', user).success(function(data){
 				authService.saveToken(data.token);
 				// console.log(data.token);
 			});

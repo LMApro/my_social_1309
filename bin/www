@@ -26,7 +26,9 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function(){
-  console.log("App running on localhost:" + port + "...");
+  console.log("---------------------------------------------------------");
+  console.log("+ Ứng dụng My Network đang chạy trên localhost:" + port + "... +");
+  console.log("---------------------------------------------------------");
 });
 server.on('error', onError);
 server.on('listening', onListening);

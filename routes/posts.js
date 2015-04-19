@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var passport = require("passport");
 var mongoose = require("mongoose");
 var jwt = require("express-jwt");
 
@@ -233,49 +232,6 @@ router
 		});
 	})
 
-	.post('/register', function(req, res, next){
-		console.log(req.body);
-		User.findOne({username: req.body.username}, function(err, user){
-			if (user) {
-				return res.status(400).json({ error: "Tên '" + req.body.username + "' đã được sử dụng, chọn tên khác!"});
-			} else {
-				var user = new User();
-				user.username = req.body.username;
-				user.setPassword(req.body.password);
-
-				user.save(function(err){
-					if (err) return next(err);
-					return res.json({token: user.generateJWT()});
-				});
-			}
-		});
-	})
-
-	.post('/login', function(req, res, next){
-		passport.authenticate('local', function(err, user, info){
-			if (err) return next(err);
-
-			if(user) {
-				return res.json({token: user.generateJWT()});
-			} else {
-				return res.status(401).json(info);
-			}
-		})(req, res, next);
-	})
-
-	.post('/changePassword', function(req, res, next){
-		User.findOne({username: req.body.username}, function(err, user){
-			console.log(user.validPassword(req.body.currentPassword));
-			if (!user.validPassword(req.body.currentPassword)) {
-				return res.status(401).json({error: 'Bạn đã nhập sai password hiện tại!'});
-			} else {
-				user.setPassword(req.body.newPassword);
-				user.save(function(err){
-					if (err) return next(err);
-					return res.json({token: user.generateJWT()})
-				});
-			}
-		});
-	});
+	;
 
 module.exports = router;
