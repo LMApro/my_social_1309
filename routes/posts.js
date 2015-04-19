@@ -103,7 +103,7 @@ router
 		}
 	})
 
-	.post('/posts/:post/unlike', auth, function(req, res, next){
+	.put('/posts/:post/unlike', auth, function(req, res, next){
 		var index = req.post.usersLiked.indexOf(req.payload.username);
 		req.post.usersLiked.splice(index, 1);
 		req.post.save(function(err, post){
@@ -125,7 +125,7 @@ router
 		}
 	})
 
-	.post('/posts/:post/undislike', auth, function(req, res, next){
+	.put('/posts/:post/undislike', auth, function(req, res, next){
 		var index = req.post.usersDisliked.indexOf(req.payload.username);
 		req.post.usersDisliked.splice(index, 1);
 		req.post.save(function(err, post){

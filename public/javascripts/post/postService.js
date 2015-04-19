@@ -52,7 +52,7 @@ angular.module("mySocial.post.service", [])
 		};
 
 		postService.unlike = function(post) {
-			return $http.post('/posts/' + post._id + '/unlike', null, {
+			return $http.put('/posts/' + post._id + '/unlike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			})
 			/*.success(function(data){
@@ -69,7 +69,7 @@ angular.module("mySocial.post.service", [])
 		};
 
 		postService.undislike = function(post) {
-			return $http.post('/posts/' + post._id + '/undislike', null, {
+			return $http.put('/posts/' + post._id + '/undislike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			});
 		};

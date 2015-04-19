@@ -1,5 +1,5 @@
 angular.module("mySocial.user.find.controller", [])
-	.controller('FindUserCtrl', ['$scope', 'user', '$state', function($scope, user, $state){
+	.controller('FindUserCtrl', ['$scope', 'user', '$state', '$window', function($scope, user, $state, $window){
 		$scope.users = user.users;
 		$scope.messages = {};
 		$scope.findUser = function(usr) {
