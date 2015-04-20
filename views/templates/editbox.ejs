@@ -1,6 +1,5 @@
 <form ng-show="editing.current[1]">
-	<textarea class="form-control" rows="{{post.title.length/80}}" ng-model="title" ng-keyup="logTitle()"></textarea>
-	<!-- <input class="form-control" type="text" ng-model="title" placeholder="Title" ng-keyup="logTitle()"> -->
+	<textarea class="form-control" rows="{{post.title.length/80}}" ng-model="title"></textarea>
 	<br>
 	<div class="input-group">
 		<input class="form-control" type="text" placeholder="Link" ng-model="link">
