@@ -78,7 +78,7 @@ angular.module("myNetwork.home.viewposts.controller", [])
 					return "Thích";
 				}
 			} else {
-				return "Bạn cần đăng nhập!";
+				return "Đăng nhập để thích bài viết!";
 			}
 		};
 
@@ -91,7 +91,7 @@ angular.module("myNetwork.home.viewposts.controller", [])
 					return "Không thích";
 				}
 			} else {
-				return "Bạn cần đăng nhập!";
+				return "Đăng nhập để không thích bài viết!";
 			}
 		};
 

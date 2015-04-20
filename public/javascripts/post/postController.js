@@ -25,7 +25,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 
 		$scope.like_unlikeComment = function(post, comment) {
 			var user = auth.currentUser();
-			if (comment.usersLiked.indexOf(user)) {
+			if (comment.usersLiked.indexOf(user) === -1) {
 				posts.likeComment(post, comment);
 				comment.usersLiked.push(user);
 			} else {
@@ -37,7 +37,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 
 		$scope.dislike_undislikeComment = function(post, comment) {
 			var user = auth.currentUser();
-			if (comment.usersDisliked.indexOf(user)) {
+			if (comment.usersDisliked.indexOf(user) === -1) {
 				posts.dislikeComment(post, comment);
 				comment.usersDisliked.push(user);
 			} else {
@@ -56,7 +56,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 					return "Thích";
 				}
 			} else {
-				return "Bạn cần đăng nhập!";
+				return "Đăng nhập để thích bình luận!";
 			}
 		};
 
@@ -69,7 +69,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 					return "Không thích";
 				}
 			} else {
-				return "Bạn cần đăng nhập!";
+				return "Đăng nhập để không thích bình luận!";
 			}
 		};
 
