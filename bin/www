@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('mySocialNet:server');
 var http = require('http');
 var open = require('open');
-
+var sendevent = require('sendevent');
 /**
  * Get port from environment and store in Express.
  */
@@ -16,6 +16,8 @@ var open = require('open');
 var port = normalizePort(process.env.PORT || '1309');
 app.set('port', port);
 
+var events = sendevent('/eventstream');
+app.use(events);
 /**
  * Create HTTP server.
  */
@@ -30,7 +32,7 @@ server.listen(port, function(){
   console.log("----------------------------------------------------------");
   console.log("+ Ứng dụng My Network đang chạy trên localhost:" + port + "... +");
   console.log("----------------------------------------------------------");
-  open('http://localhost:' + port);
+  // open('http://localhost:' + port);
 });
 server.on('error', onError);
 server.on('listening', onListening);
