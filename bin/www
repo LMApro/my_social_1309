@@ -29,9 +29,9 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function(){
-  console.log("----------------------------------------------------------");
+  console.log("--------------------------------------------------------");
   console.log("+ Ứng dụng My Network đang chạy trên localhost:" + port + "... +");
-  console.log("----------------------------------------------------------");
+  console.log("--------------------------------------------------------");
   // open('http://localhost:' + port);
 });
 server.on('error', onError);
