@@ -1,4 +1,15 @@
-	<% include head.ejs %>
+<!DOCTYPE html>
+<html lang="en" ng-app="myNetwork">
+  <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<title>My Network</title>
+   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="/stylesheets/bootstrap.cosmo.css"> -->
+	<link rel="stylesheet" href="/stylesheets/angular-csp.css">
+   <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  
 <body>
     <div class="container" style="transition: all .8s ease;">
 		<div class="row">
@@ -40,7 +51,25 @@
 			</div>
 		</div>
 	</div>
+	
+	<script src="/javascripts/vendor/angular.min.js"></script>
+	<script src="/javascripts/vendor/angular-ui-router.min.js"></script>
+	<script src="/javascripts/vendor/ui-bootstrap-0.12.1.min.js"></script>
+	<script src="/javascripts/helper/dirPaginate.min.js"></script>
+	<script src="/javascripts/auth/authController.js"></script>
+	<script src="/javascripts/auth/authService.js"></script>
+	<script src="/javascripts/config/stateProvider.js"></script>
+	<script src="/javascripts/helper/constants.js"></script>
+	<script src="/javascripts/helper/filters.js"></script>
+	<script src="/javascripts/post/postController.js"></script>
+	<script src="/javascripts/post/postService.js"></script>
+	<script src="/javascripts/home/mainController.js"></script>
+	<script src="/javascripts/home/navController.js"></script>
+	<script src="/javascripts/user/userService.js"></script>
+	<script src="/javascripts/user/userController.js"></script>
+	<script src="/javascripts/user/findUserController.js"></script>
+	<script src="/javascripts/angularApp.js"></script>
+</body>
+</html>
 
-	<% include templates.ejs %>
 
-<% include javascripts.ejs %>

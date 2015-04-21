@@ -3,8 +3,9 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 		$stateProvider
 			.state('home', {
 				url: "/home",
-				templateUrl: "/home.html",
+				templateUrl: "templates/home.html",
 				controller: "ViewPostsCtrl",
+				
 				resolve: {
 					postPromise: ['posts', function(posts){
 						return posts.getAll();
@@ -12,9 +13,10 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 				}
 			})
 
+			
 			.state('posts', {
 				url: "/posts/{id}",
-				templateUrl: "/posts.html",
+				templateUrl: "templates/posts.html",
 				controller: "ViewCommentsCtrl",
 				resolve: {
 					post: ['$stateParams', 'posts', function($stateParams, posts){
@@ -25,7 +27,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('login', {
 				url: "/login",
-				templateUrl: '/login.html',
+				templateUrl: 'templates/login.html',
 				controller: 'AuthCtrl',
 				onEnter: ['$state', 'auth', function($state, auth){
 					if (auth.isLoggedIn()) {
@@ -36,7 +38,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('register', {
 				url: '/register', 
-				templateUrl: '/register.html',
+				templateUrl: 'templates/register.html',
 				controller: 'AuthCtrl',
 				onEnter: ['$state', 'auth', function($state, auth){
 					if (auth.isLoggedIn()) {
@@ -47,7 +49,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('user', {
 				url: '/users/{username}',
-				templateUrl: '/user.html',
+				templateUrl: 'templates/user.html',
 				controller: 'ViewUserPostsCtrl',
 				onEnter: ["$state", '$stateParams', function($state, $stateParams){
 					if (!$stateParams.username) {
@@ -63,7 +65,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('findUser', {
 				url: '/findUser',
-				templateUrl: '/findUser.html',
+				templateUrl: 'templates/findUser.html',
 				controller: 'FindUserCtrl',
 				onEnter: ['$state', 'auth', function($state, auth){
 					if (!auth.isLoggedIn()) {
@@ -75,7 +77,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('listUser', {
 				url: '/listUser',
-				templateUrl: '/listUser.html',
+				templateUrl: 'templates/listUser.html',
 				controller: 'FindUserCtrl',
 				resolve: {
 					userPromise: ['user', function(user){
@@ -91,7 +93,7 @@ angular.module("myNetwork.config.stateProvider", ['ui.router'])
 
 			.state('changePassword', {
 				url: '/changePassword',
-				templateUrl: '/changePassword.html',
+				templateUrl: 'templates/changePassword.html',
 				controller: 'AuthCtrl',
 				onEnter: ['$state', 'auth', function($state, auth){
 					if (!auth.isLoggedIn()) {

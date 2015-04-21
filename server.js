@@ -18,8 +18,8 @@ var app = express();
 mongoose.connect('mongodb://localhost/news');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.png'));
