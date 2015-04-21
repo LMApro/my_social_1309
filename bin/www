@@ -7,8 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('mySocialNet:server');
 var http = require('http');
-var open = require('open');
-var sendevent = require('sendevent');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -16,8 +15,6 @@ var sendevent = require('sendevent');
 var port = normalizePort(process.env.PORT || '1309');
 app.set('port', port);
 
-var events = sendevent('/eventstream');
-app.use(events);
 /**
  * Create HTTP server.
  */
