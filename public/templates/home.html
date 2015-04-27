@@ -41,7 +41,6 @@
 	</p>
 	<hr>
 </form>
-
 <p ng-show="allposts.length==0">Chưa có bài viết nào.</p>
 <ul ng-show="allposts.length>0" class="list-unstyled">
 	<li dir-paginate="post in allposts | itemsPerPage: postsPerPage" current-page="currentPage" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">

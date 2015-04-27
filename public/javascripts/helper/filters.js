@@ -8,4 +8,5 @@ angular.module("myNetwork.filters", [])
 				return 'https://' + link;
 			}
 		};
-	}]);
+	}])
+	;
