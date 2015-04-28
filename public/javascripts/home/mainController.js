@@ -6,7 +6,12 @@ angular.module("myNetwork.home.viewposts.controller", [])
 		$scope.logOut = auth.logOut;
 		$scope.isAdmin = auth.isAdmin;
 		$scope.allposts = posts.posts;
-
+		$scope.sortOrder = '-date';
+		$scope.sortOptions = [
+			{ name: 'Nhiều like nhất', order: '-usersLiked.length'},
+			{ name: 'Nhiều bình luận nhất', order: '-comments.length'},
+			{ name: 'Mới nhất', order: '-date' }
+		];
 		$scope.postsPerPage = 10;
 		$scope.currentPage = 1;
 		
@@ -15,6 +20,9 @@ angular.module("myNetwork.home.viewposts.controller", [])
 		$scope.currentLike = false;
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
 
+		$scope.setOrder = function(order) {
+			$scope.sortOrder = order;
+		};
 		$scope.addPost = function(){
 			if (!$scope.newtitle) {
 				$scope.error = 'Bạn chưa nhập nội dung!';

@@ -5,6 +5,15 @@
 		<input class="form-control" type="text" placeholder="URL (nếu có)" ng-model="newlink">
 		<span class="input-group-btn"><button class="btn btn-primary" ng-click="addPost()">Đăng</button></span>
 	</div>
+	<br>
+	<p class="pull-right">
+		Sắp xếp theo: 
+		<span ng-repeat="option in sortOptions">
+			<a href="" ng-click="setOrder(option.order)">{{option.name}}</a>
+			<span ng-if="$index<2">&#8226;</span>
+		</span>
+	</p>
+	<br>
 	<div ng-show="error!==''">
 		<br>
 		<p class="text-danger">{{error}}</p>
@@ -13,6 +22,7 @@
 <div ng-hide="isLoggedIn()">
   <h3>Bạn cần <a href="/#/login">đăng nhập</a> hoặc <a href="/#/register">đăng kí</a> để có thể đăng bài.</h3>
 </div>
+
 <hr>
 <form ng-show="editing.current[1]">
 	<textarea class="form-control" rows="{{editing.current[0].title.length/80}}" ng-model="title"></textarea>
@@ -39,11 +49,16 @@
 			<a href="" ng-click="edit(post)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="delete(post)">Xóa</a>
 		</span>
 	</p>
+	
 	<hr>
+	
 </form>
+
 <p ng-show="allposts.length==0">Chưa có bài viết nào.</p>
+
 <ul ng-show="allposts.length>0" class="list-unstyled">
-	<li dir-paginate="post in allposts | itemsPerPage: postsPerPage" current-page="currentPage" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">
+
+	<li dir-paginate="post in allposts | orderBy: sortOrder | itemsPerPage: postsPerPage" current-page="currentPage" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">
 		<p ng-show="editing.current[0]._id!==post._id">
 			<a ng-href="{{post.link | link}}" ng-show="post.link" class="text-primary post" target="_blank">
 				{{post.title}}
