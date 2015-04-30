@@ -8,9 +8,9 @@ angular.module("myNetwork.home.viewposts.controller", [])
 		$scope.allposts = posts.posts;
 		$scope.sortOrder = '-date';
 		$scope.sortOptions = [
+			{ name: 'Mới nhất', order: '-date' },
 			{ name: 'Nhiều like nhất', order: '-usersLiked.length'},
-			{ name: 'Nhiều bình luận nhất', order: '-comments.length'},
-			{ name: 'Mới nhất', order: '-date' }
+			{ name: 'Nhiều bình luận nhất', order: '-comments.length'}		
 		];
 		$scope.postsPerPage = 10;
 		$scope.currentPage = 1;
