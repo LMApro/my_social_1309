@@ -26,7 +26,6 @@ a:hover, a:focus {
 
 .text-only {
 	color: #353535;
-	white-space: pre-line;
 	line-height: 1.2;
 }
 
@@ -49,4 +48,8 @@ a:hover, a:focus {
 
 textarea {
 	color: #222;
+}
+
+.multiline {
+	white-space: pre-line;
 }
