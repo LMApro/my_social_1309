@@ -15,7 +15,8 @@ var posts = require('./routes/posts');
 var users = require('./routes/users');
 
 var app = express();
-mongoose.connect('mongodb://localhost/news');
+// mongoose.connect('mongodb://localhost/news');
+mongoose.connect('mongodb://makatz:matn821309@ds027491.mongolab.com:27491/news');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));
