@@ -3,7 +3,7 @@ var concat = require("gulp-concat");
 var uglify = require("gulp-uglify");
 var sourcemaps = require('gulp-sourcemaps');
 
-gulp.task('minify-js', function(){
+gulp.task('minify-dev-js', function(){
 	gulp.src([
 		'public/javascripts/angularApp.js',
 		'public/javascripts/auth/*.js',
@@ -18,13 +18,17 @@ gulp.task('minify-js', function(){
 		.pipe(uglify())
 	.pipe(sourcemaps.write())
 	.pipe(gulp.dest('./public/javascripts'));
-	
+});
+
+gulp.task('minify-vendor-js', function(){
 	gulp.src([
 		'public/javascripts/vendor/angular.min.js',
 		'public/javascripts/vendor/angular-ui-router.min.js',
 		'public/javascripts/vendor/dirPaginate.min.js',
+		'public/javascripts/vendor/angular-pusher.min.js',
 		'public/javascripts/vendor/ui-bootstrap-0.12.1.min.js',
 		])
 		.pipe(concat('vendor.js'))
 		.pipe(gulp.dest('./public/javascripts'));
 });
+
