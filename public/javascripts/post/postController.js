@@ -6,17 +6,19 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.currentComment = {};
 		$scope.currentUser = auth.currentUser;
 		$scope.currentPage = 1;
-
 		$scope.isLoggedIn = auth.isLoggedIn;
+
+		Pusher.subscribe("comments", "addComment", function(comment){
+			$scope.post.comments.splice(0, 0, comment);
+		});
+
 		$scope.addComment = function(){
 			if ($scope.body) {
 				posts.addComment(post._id, {
 					body: $scope.body,
 					date: new Date()
 				});
-				Pusher.subscribe("comments", "addComment", function(comment){
-					$scope.post.comments.splice(0, 0, comment);
-				});
+				
 				$scope.error = null;
 			} else {
 				$scope.error = 'Bạn chưa nhập nội dung bình luận!';
@@ -77,6 +79,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.deleteComment = function(post, comment) {
 			if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
 				posts.deleteComment(post, comment);	
+
 			}
 		};
 

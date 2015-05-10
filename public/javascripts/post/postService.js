@@ -1,8 +1,18 @@
 angular.module("myNetwork.post.service", [])
-	.factory("posts", ["$http", "auth", function($http, auth){
+	.factory("posts", ["$http", "auth", "Pusher", function($http, auth, Pusher){
 		var postService = {
 			posts: []
 		};
+
+		Pusher.subscribe("posts", "addPost", function(post){
+			postService.posts.splice(0, 0, post);
+		});
+
+		Pusher.subscribe("posts", "deletePost", function(data){
+			var index = postService.getAllPostIds().indexOf(data.post);
+			postService.posts.splice(index, 1);
+		});
+
 		postService.getAll = function() {
 			return $http.get('/posts').success(function(data){
 				angular.copy(data, postService.posts);
@@ -24,9 +34,9 @@ angular.module("myNetwork.post.service", [])
 		postService.create = function(post){
 			return $http.post('/posts', post, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(data){
+			})/*.success(function(data){
 				postService.posts.splice(0, 0, data);
-			});
+			})*/;
 		};
 
 		postService.get = function(id) {
@@ -96,8 +106,8 @@ angular.module("myNetwork.post.service", [])
 		};
 
 		postService.delete = function(post) {
-			var index = postService.posts.indexOf(post);
-			postService.posts.splice(index, 1);
+			// var index = postService.posts.indexOf(post);
+			// postService.posts.splice(index, 1);
 
 			return $http.delete('/posts/' + post._id, null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
@@ -109,7 +119,6 @@ angular.module("myNetwork.post.service", [])
 			var commentIndex = post.comments.indexOf(comment);
 			post.comments.splice(commentIndex, 1);
 			postService.posts[postIndex] = post;
-
 			return $http.delete('/posts/' + post._id + '/comments/' + comment._id, null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			});

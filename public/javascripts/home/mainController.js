@@ -1,5 +1,5 @@
 angular.module("myNetwork.home.viewposts.controller", [])
-	.controller("ViewPostsCtrl", ["$scope", "$window", "posts", 'auth', 'REGEXPS', function($scope, $window, posts, auth, regex){
+	.controller("ViewPostsCtrl", ["$scope", "$window", "posts", 'auth', 'REGEXPS', "Pusher", function($scope, $window, posts, auth, regex, Pusher){
 		
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.currentUser = auth.currentUser;
@@ -20,6 +20,10 @@ angular.module("myNetwork.home.viewposts.controller", [])
 		$scope.currentLike = false;
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
 
+		/*Pusher.subscribe("posts", "addPost", function(post){
+			$scope.allposts.push(post);
+		});
+*/
 		$scope.setOrder = function(order) {
 			$scope.sortOrder = order;
 		};

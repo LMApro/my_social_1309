@@ -33,6 +33,7 @@ router
 	.post('/posts', auth, function(req, res, next){
 		var post = new Post(req.body);
 		post.author = req.payload.username;
+		pusher.trigger("posts", "addPost", post);
 		post.save(function(err, post){
 			if (err) {
 				return next(err);
@@ -155,6 +156,7 @@ router
 	.put('/posts/:post/comments/:comment/like', auth, function(req, res, next){
 		if (req.comment.usersLiked.indexOf(req.payload.username) === -1) {
 			req.comment.usersLiked.push(req.payload.username);
+
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
 				res.json(req.payload.username);
@@ -208,6 +210,7 @@ router
 	})
 
 	.delete('/posts/:post', function(req, res, next){
+		pusher.trigger("posts", "deletePost", {post: req.params.post});
 		// remove post from database
 		Post.remove({_id: req.params.post}, function(err){
 			if (err) return next(err);
@@ -221,6 +224,8 @@ router
 				if (err) return next(err);
 			});
 		});
+
+
 	})
 
 	.delete('/posts/:post/comments/:comment', function(req, res, next){
@@ -237,6 +242,8 @@ router
 				if (err) return next(err);
 			});
 		});
+
+		pusher.trigger("comments", "deleteComment", {post: req.params.post, comment: req.params.comment});
 	})
 
 	;
