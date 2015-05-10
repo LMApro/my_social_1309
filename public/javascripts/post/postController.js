@@ -1,5 +1,5 @@
 angular.module("myNetwork.post.viewcomments.controller", [])
-	.controller("ViewCommentsCtrl", ["$scope", "posts", "post", 'auth', '$window', function($scope, posts, post, auth, $window){
+	.controller("ViewCommentsCtrl", ["$scope", "posts", "post", 'auth', '$window', 'Pusher', function($scope, posts, post, auth, $window, Pusher){
 		$scope.post = post;
 		$scope.error = '';
 		$scope.button = { name: 'Comment' };
@@ -13,7 +13,8 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 				posts.addComment(post._id, {
 					body: $scope.body,
 					date: new Date()
-				}).success(function(comment){
+				});
+				Pusher.subscribe("comments", "addComment", function(comment){
 					$scope.post.comments.splice(0, 0, comment);
 				});
 				$scope.error = null;

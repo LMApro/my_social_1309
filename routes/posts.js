@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
 var jwt = require("express-jwt");
+var Pusher = require("pusher");
+var pusher = new Pusher({
+  appId: '119528',
+  key: '864c814b8f54479e5d71',
+  secret: 'dc371e33b3978e31b883'
+});
 
 var Post = mongoose.model("Post");
 var Comment = mongoose.model("Comment");
@@ -79,6 +85,7 @@ router
 		var comment = new Comment(req.body);
 		comment.post = req.post;
 		comment.author = req.payload.username;
+		pusher.trigger("comments", "addComment", comment);
 		comment.save(function(err, comment){
 			if (err) return next(err);
 			req.post.comments.splice(0, 0, comment);

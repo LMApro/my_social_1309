@@ -3,6 +3,7 @@ angular.module("myNetwork", [
 	'ui.router',
 	"angularUtils.directives.dirPagination",
 	"myNetwork.config.stateProvider",
+	"myNetwork.config.pusherProvider",
 	"myNetwork.constants",
 	"myNetwork.filters",
 	"myNetwork.auth.service",
