@@ -115,10 +115,6 @@ angular.module("myNetwork.post.service", [])
 		};
 
 		postService.deleteComment = function(post,comment) {
-			var postIndex = postService.getAllPostIds().indexOf(post._id);
-			var commentIndex = post.comments.indexOf(comment);
-			post.comments.splice(commentIndex, 1);
-			postService.posts[postIndex] = post;
 			return $http.delete('/posts/' + post._id + '/comments/' + comment._id, null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			});
