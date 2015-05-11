@@ -229,6 +229,8 @@ router
 	})
 
 	.delete('/posts/:post/comments/:comment', function(req, res, next){
+		pusher.trigger("comments", "deleteComment", {post: req.params.post, comment: req.params.comment});
+		
 		Comment.remove({_id: req.params.comment}, function(err){
 			if (err) return next(err);
 			res.json(req.comment);
@@ -243,7 +245,7 @@ router
 			});
 		});
 
-		pusher.trigger("comments", "deleteComment", {post: req.params.post, comment: req.params.comment});
+		
 	})
 
 	;

@@ -37,6 +37,9 @@
 				<span class="pull-right small" ng-if="comment.author===currentUser() && canEditAndDelete">
 					<a href="" ng-click="editComment(post, comment)">Sửa</a> &nbsp;&nbsp; <a href="" ng-click="deleteComment(post,comment)">Xóa</a>
 				</span>
+				<span class="pull-right small" ng-if="comment.author!==currentUser() && canEditAndDelete && isAdmin()">
+					<a href="" ng-click="deleteComment(post,comment)">Xóa</a>
+				</span>
 			</p>
 			<hr>
 		</li>

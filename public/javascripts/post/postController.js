@@ -7,9 +7,17 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.currentUser = auth.currentUser;
 		$scope.currentPage = 1;
 		$scope.isLoggedIn = auth.isLoggedIn;
+		$scope.isAdmin = auth.isAdmin;
 
 		Pusher.subscribe("comments", "addComment", function(comment){
 			$scope.post.comments.splice(0, 0, comment);
+		});
+
+		Pusher.subscribe("comments", "deleteComment", function(data){
+			var index = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment);
+			$scope.post.comments.splice(index, 1);
 		});
 
 		$scope.addComment = function(){
@@ -78,6 +86,8 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 
 		$scope.deleteComment = function(post, comment) {
 			if ($window.confirm("Bạn có chắc chắn muốn xóa không?")) {
+				// console.log("Before delete:");
+				// console.log(post);
 				posts.deleteComment(post, comment);	
 
 			}
