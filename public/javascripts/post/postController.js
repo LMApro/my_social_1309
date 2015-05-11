@@ -12,6 +12,13 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments.splice(0, 0, comment);
 		});
 
+		Pusher.subscribe("comments", "deleteComment", function(data){
+			var index = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment);
+			$scope.post.comments.splice(index, 1);
+		});
+
 		$scope.addComment = function(){
 			if ($scope.body) {
 				posts.addComment(post._id, {
