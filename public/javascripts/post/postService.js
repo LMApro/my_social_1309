@@ -103,22 +103,13 @@ angular.module("myNetwork.post.service", [])
 		postService.save = function(post) {
 			return $http.put('/posts/' + post._id + '/save', post, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})/*.success(function(post){
-				var postIndex = postService.getAllPostIds().indexOf(post._id);
-				postService.posts[postIndex] = post;
-			})*/;
+			});
 		};
 
 		postService.saveComment = function(post, comment) {
 			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/save', comment, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})/*.success(function(comment){
-				var postIndex = postService.getAllPostIds().indexOf(post._id);
-				var commentIndex = post.comments.map(function(item){
-					return item._id;
-				}).indexOf(comment._id);
-				post.comments[commentIndex] = comment;
-			})*/;
+			});
 		};
 
 		postService.delete = function(post) {

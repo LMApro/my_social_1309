@@ -163,7 +163,7 @@ router
 	.put('/posts/:post/comments/:comment/like', auth, function(req, res, next){
 		if (req.comment.usersLiked.indexOf(req.payload.username) === -1) {
 			req.comment.usersLiked.push(req.payload.username);
-
+			pusher.trigger("comments", "likeComment", { user: req.payload.username, comment: req.comment });
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
 				res.json(req.payload.username);
@@ -177,6 +177,7 @@ router
 	.put('/posts/:post/comments/:comment/unlike', auth, function(req, res, next){
 		var index = req.comment.usersLiked.indexOf(req.payload.username);
 		req.comment.usersLiked.splice(index, 1);
+		pusher.trigger("comments", "unlikeComment", { user: req.payload.username, comment: req.comment });
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
 			res.json(req.payload.username);
@@ -186,6 +187,7 @@ router
 	.put('/posts/:post/comments/:comment/dislike', auth, function(req, res, next){
 		if (req.comment.usersDisliked.indexOf(req.payload.username) === -1) {
 			req.comment.usersDisliked.push(req.payload.username);
+			pusher.trigger("comments", "dislikeComment", { user: req.payload.username, comment: req.comment });
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
 				res.json(req.payload.username);
@@ -199,6 +201,7 @@ router
 	.put('/posts/:post/comments/:comment/undislike', auth, function(req, res, next){
 		var index = req.comment.usersDisliked.indexOf(req.payload.username);
 		req.comment.usersDisliked.splice(index, 1);
+		pusher.trigger("comments", "undislikeComment", { user: req.payload.username, comment: req.comment });
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
 			res.json(req.payload.username);

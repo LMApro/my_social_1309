@@ -27,6 +27,36 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments.splice(index, 1);
 		});
 
+		Pusher.subscribe("comments", "likeComment", function(data){
+			var commentIndex = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment._id);
+			$scope.post.comments[commentIndex].usersLiked.push(data.user);
+		});
+
+		Pusher.subscribe("comments", "unlikeComment", function(data){
+			var commentIndex = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment._id);
+			var userIndex = $scope.post.comments[commentIndex].usersLiked.indexOf(data.user);
+			$scope.post.comments[commentIndex].usersLiked.splice(userIndex, 1);
+		});
+
+		Pusher.subscribe("comments", "dislikeComment", function(data){
+			var commentIndex = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment._id);
+			$scope.post.comments[commentIndex].usersDisliked.push(data.user);
+		});
+
+		Pusher.subscribe("comments", "undislikeComment", function(data){
+			var commentIndex = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(data.comment._id);
+			var userIndex = $scope.post.comments[commentIndex].usersDisliked.indexOf(data.user);
+			$scope.post.comments[commentIndex].usersDisliked.splice(userIndex, 1);
+		});
+
 		$scope.addComment = function(){
 			if ($scope.body) {
 				posts.addComment(post._id, {
@@ -45,11 +75,9 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			var user = auth.currentUser();
 			if (comment.usersLiked.indexOf(user) === -1) {
 				posts.likeComment(post, comment);
-				comment.usersLiked.push(user);
 			} else {
 				posts.unlikeComment(post, comment);
 				var index = comment.usersLiked.indexOf(user);
-				comment.usersLiked.splice(index, 1);
 			}
 		};
 
@@ -57,11 +85,9 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			var user = auth.currentUser();
 			if (comment.usersDisliked.indexOf(user) === -1) {
 				posts.dislikeComment(post, comment);
-				comment.usersDisliked.push(user);
 			} else {
 				posts.undislikeComment(post, comment);
 				var index = comment.usersDisliked.indexOf(user);
-				comment.usersDisliked.splice(index, 1);
 			}
 		};
 
