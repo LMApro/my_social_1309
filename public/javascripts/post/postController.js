@@ -7,6 +7,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.currentUser = auth.currentUser;
 		$scope.currentPage = 1;
 		$scope.isLoggedIn = auth.isLoggedIn;
+		$scope.isAdmin = auth.isAdmin;
 
 		Pusher.subscribe("comments", "addComment", function(comment){
 			$scope.post.comments.splice(0, 0, comment);
