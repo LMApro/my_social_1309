@@ -13,6 +13,28 @@ angular.module("myNetwork.post.service", [])
 			postService.posts.splice(index, 1);
 		});
 
+		Pusher.subscribe("posts", "likePost", function(data){
+			var index = postService.getAllPostIds().indexOf(data.post._id);
+			postService.posts[index].usersLiked.push(data.username);
+		});
+
+		Pusher.subscribe("posts", "unlikePost", function(data){
+			var postIndex = postService.getAllPostIds().indexOf(data.post._id);
+			var usrIndex = postService.posts[postIndex].usersLiked.indexOf(data.username);
+			postService.posts[postIndex].usersLiked.splice(usrIndex, 1);
+		});
+
+		Pusher.subscribe("posts", "dislikePost", function(data){
+			var index = postService.getAllPostIds().indexOf(data.post._id);
+			postService.posts[index].usersDisliked.push(data.username);
+		});
+
+		Pusher.subscribe("posts", "undislikePost", function(data){
+			var postIndex = postService.getAllPostIds().indexOf(data.post._id);
+			var usrIndex = postService.posts[postIndex].usersLiked.indexOf(data.username);
+			postService.posts[postIndex].usersDisliked.splice(usrIndex, 1);
+		});
+
 		postService.getAll = function() {
 			return $http.get('/posts').success(function(data){
 				angular.copy(data, postService.posts);

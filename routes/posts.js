@@ -98,8 +98,10 @@ router
 	})
 
 	.put('/posts/:post/like', auth, function(req, res, next){
+		
 		if (req.post.usersLiked.indexOf(req.payload.username) === -1) {
 			req.post.usersLiked.push(req.payload.username);
+			pusher.trigger("posts", "likePost", { post: req.post, username: req.payload.username });
 			req.post.save(function(err, post){
 				if (err) return next(err);
 				res.json(req.payload.username);
@@ -113,6 +115,7 @@ router
 	.put('/posts/:post/unlike', auth, function(req, res, next){
 		var index = req.post.usersLiked.indexOf(req.payload.username);
 		req.post.usersLiked.splice(index, 1);
+		pusher.trigger("posts", "unlikePost", { post: req.post, username: req.payload.username });
 		req.post.save(function(err, post){
 			if (err) return next(err);
 			res.json(req.payload.username);
@@ -122,6 +125,7 @@ router
 	.put('/posts/:post/dislike', auth, function(req, res, next){
 		if (req.post.usersDisliked.indexOf(req.payload.username) === -1) {
 			req.post.usersDisliked.push(req.payload.username);
+			pusher.trigger("posts", "dislikePost", { post: req.post, username: req.payload.username });
 			req.post.save(function(err, post){
 				if (err) return next(err);
 				res.json(req.payload.username);
@@ -135,6 +139,7 @@ router
 	.put('/posts/:post/undislike', auth, function(req, res, next){
 		var index = req.post.usersDisliked.indexOf(req.payload.username);
 		req.post.usersDisliked.splice(index, 1);
+		pusher.trigger("posts", "undislikePost", { post: req.post, username: req.payload.username });
 		req.post.save(function(err, post){
 			if (err) return next(err);
 			res.json(req.payload.username);
