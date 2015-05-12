@@ -13,6 +13,13 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments.splice(0, 0, comment);
 		});
 
+		Pusher.subscribe("comments", "saveComment", function(comment){
+			var commentIndex = $scope.post.comments.map(function(item){
+				return item._id;
+			}).indexOf(comment._id);
+			$scope.post.comments[commentIndex] = comment;
+		});
+
 		Pusher.subscribe("comments", "deleteComment", function(data){
 			var index = $scope.post.comments.map(function(item){
 				return item._id;

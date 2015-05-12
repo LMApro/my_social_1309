@@ -20,10 +20,6 @@ angular.module("myNetwork.home.viewposts.controller", [])
 		$scope.currentLike = false;
 		var VALID_LINK = regex.VALID_LINK_NOT_REQUIRED_PROTOCOL;
 
-		/*Pusher.subscribe("posts", "addPost", function(post){
-			$scope.allposts.push(post);
-		});
-*/
 		$scope.setOrder = function(order) {
 			$scope.sortOrder = order;
 		};
@@ -33,7 +29,7 @@ angular.module("myNetwork.home.viewposts.controller", [])
 			} else if ($scope.newlink && !VALID_LINK.test($scope.newlink)) {
 				$scope.error = 'Link không hợp lệ!';
 			} else {
-				//console.log("valid post");
+
 				posts.create({
 					title: $scope.newtitle,
 					link: $scope.newlink,

@@ -151,8 +151,10 @@ router
 			post.title = req.body.title;
 			post.link = req.body.link;
 			post.date = req.body.date;
+
 			post.save(function(err, saved){
 				if (err) return next(err);
+				pusher.trigger("posts", "savePost", saved);
 				res.json(saved);
 			});
 		});
@@ -209,6 +211,7 @@ router
 			comment.date = req.body.date;
 			comment.save(function(err, saved){
 				if (err) return next(err);
+				pusher.trigger("comments", "saveComment", saved);
 				res.json(saved);
 			});
 		});

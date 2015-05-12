@@ -8,6 +8,11 @@ angular.module("myNetwork.post.service", [])
 			postService.posts.splice(0, 0, post);
 		});
 
+		Pusher.subscribe("posts", "savePost", function(post){
+			var postIndex = postService.getAllPostIds().indexOf(post._id);
+			postService.posts[postIndex] = post;
+		});
+
 		Pusher.subscribe("posts", "deletePost", function(data){
 			var index = postService.getAllPostIds().indexOf(data.post);
 			postService.posts.splice(index, 1);
@@ -56,9 +61,7 @@ angular.module("myNetwork.post.service", [])
 		postService.create = function(post){
 			return $http.post('/posts', post, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})/*.success(function(data){
-				postService.posts.splice(0, 0, data);
-			})*/;
+			});
 		};
 
 		postService.get = function(id) {
@@ -76,22 +79,13 @@ angular.module("myNetwork.post.service", [])
 		postService.like = function(post) {
 			return $http.put('/posts/' + post._id + '/like', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})
-			/*.success(function(data){
-				post.usersLiked.push(data);
-			})*/
-			;
+			});
 		};
 
 		postService.unlike = function(post) {
 			return $http.put('/posts/' + post._id + '/unlike', null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			})
-			/*.success(function(data){
-				var index = post.usersLiked.indexOf(data);
-				post.usersLiked.splice(index, 1);
-			})*/
-			;
+			});
 		};
 
 		postService.dislike = function(post) {
@@ -109,38 +103,31 @@ angular.module("myNetwork.post.service", [])
 		postService.save = function(post) {
 			return $http.put('/posts/' + post._id + '/save', post, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(post){
+			})/*.success(function(post){
 				var postIndex = postService.getAllPostIds().indexOf(post._id);
 				postService.posts[postIndex] = post;
-			})
+			})*/;
 		};
 
 		postService.saveComment = function(post, comment) {
 			return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/save', comment, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
-			}).success(function(comment){
+			})/*.success(function(comment){
 				var postIndex = postService.getAllPostIds().indexOf(post._id);
 				var commentIndex = post.comments.map(function(item){
 					return item._id;
 				}).indexOf(comment._id);
 				post.comments[commentIndex] = comment;
-			});
+			})*/;
 		};
 
 		postService.delete = function(post) {
-			// var index = postService.posts.indexOf(post);
-			// postService.posts.splice(index, 1);
-
 			return $http.delete('/posts/' + post._id, null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			});
 		};
 
 		postService.deleteComment = function(post,comment) {
-			/*var postIndex = postService.getAllPostIds().indexOf(post._id);
-			var commentIndex = post.comments.indexOf(comment);
-			post.comments.splice(commentIndex, 1);
-			postService.posts[postIndex] = post;*/
 			return $http.delete('/posts/' + post._id + '/comments/' + comment._id, null, {
 				headers: {Authorization: "Bearer " + auth.getToken()}
 			});
