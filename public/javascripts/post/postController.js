@@ -9,11 +9,11 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.isAdmin = auth.isAdmin;
 
-		Pusher.subscribe("comments", "addComment", function(comment){
+		Pusher.subscribe("comments" + $scope.post._id, "addComment", function(comment){
 			$scope.post.comments.splice(0, 0, comment);
 		});
 
-		Pusher.subscribe("comments", "saveComment", function(comment){
+		Pusher.subscribe("comments" + $scope.post._id, "saveComment", function(comment){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(comment._id);
@@ -27,14 +27,18 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments.splice(index, 1);
 		});
 
-		Pusher.subscribe("comments", "likeComment", function(data){
-			var commentIndex = $scope.post.comments.map(function(item){
+		Pusher.subscribe("comments" + $scope.post._id, "likeComment", function(data){
+			var commentIds = $scope.post.comments.map(function(item){
 				return item._id;
-			}).indexOf(data.comment._id);
+			});
+			var commentIndex = commentIds.indexOf(data.comment._id);
 			$scope.post.comments[commentIndex].usersLiked.push(data.user);
+			// console.log($scope.post);
+			// console.log(data);
+			
 		});
 
-		Pusher.subscribe("comments", "unlikeComment", function(data){
+		Pusher.subscribe("comments" + $scope.post._id, "unlikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
@@ -42,14 +46,14 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments[commentIndex].usersLiked.splice(userIndex, 1);
 		});
 
-		Pusher.subscribe("comments", "dislikeComment", function(data){
+		Pusher.subscribe("comments" + $scope.post._id, "dislikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
 			$scope.post.comments[commentIndex].usersDisliked.push(data.user);
 		});
 
-		Pusher.subscribe("comments", "undislikeComment", function(data){
+		Pusher.subscribe("comments" + $scope.post._id, "undislikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
@@ -75,9 +79,11 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			var user = auth.currentUser();
 			if (comment.usersLiked.indexOf(user) === -1) {
 				posts.likeComment(post, comment);
+				// console.log("------------------------like cmt-----------------");
 			} else {
 				posts.unlikeComment(post, comment);
-				var index = comment.usersLiked.indexOf(user);
+				// console.log("unlike cmt");
+				// var index = comment.usersLiked.indexOf(user);
 			}
 		};
 
@@ -87,7 +93,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 				posts.dislikeComment(post, comment);
 			} else {
 				posts.undislikeComment(post, comment);
-				var index = comment.usersDisliked.indexOf(user);
+				// var index = comment.usersDisliked.indexOf(user);
 			}
 		};
 

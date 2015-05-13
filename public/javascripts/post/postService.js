@@ -1,5 +1,5 @@
 angular.module("myNetwork.post.service", [])
-	.factory("posts", ["$http", "auth", "Pusher", function($http, auth, Pusher){
+	.factory("posts", ["$http", "auth", "Pusher", "$state", function($http, auth, Pusher, $state){
 		var postService = {
 			posts: []
 		};
@@ -11,11 +11,13 @@ angular.module("myNetwork.post.service", [])
 		Pusher.subscribe("posts", "savePost", function(post){
 			var postIndex = postService.getAllPostIds().indexOf(post._id);
 			postService.posts[postIndex] = post;
+			$state.go("home");
 		});
 
 		Pusher.subscribe("posts", "deletePost", function(data){
 			var index = postService.getAllPostIds().indexOf(data.post);
 			postService.posts.splice(index, 1);
+			$state.go("home");
 		});
 
 		Pusher.subscribe("posts", "likePost", function(data){

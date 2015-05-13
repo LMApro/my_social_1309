@@ -86,7 +86,7 @@ router
 		var comment = new Comment(req.body);
 		comment.post = req.post;
 		comment.author = req.payload.username;
-		pusher.trigger("comments", "addComment", comment);
+		pusher.trigger("comments" + req.params.post, "addComment", comment);
 		comment.save(function(err, comment){
 			if (err) return next(err);
 			req.post.comments.splice(0, 0, comment);
@@ -161,11 +161,13 @@ router
 	})
 
 	.put('/posts/:post/comments/:comment/like', auth, function(req, res, next){
+		// console.log(req.params);
 		if (req.comment.usersLiked.indexOf(req.payload.username) === -1) {
 			req.comment.usersLiked.push(req.payload.username);
-			pusher.trigger("comments", "likeComment", { user: req.payload.username, comment: req.comment });
+			
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
+				pusher.trigger("comments" + req.params.post, "likeComment", { user: req.payload.username, comment: comment });
 				res.json(req.payload.username);
 			});
 		} 
@@ -177,9 +179,10 @@ router
 	.put('/posts/:post/comments/:comment/unlike', auth, function(req, res, next){
 		var index = req.comment.usersLiked.indexOf(req.payload.username);
 		req.comment.usersLiked.splice(index, 1);
-		pusher.trigger("comments", "unlikeComment", { user: req.payload.username, comment: req.comment });
+		
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
+			pusher.trigger("comments" + req.params.post, "unlikeComment", { user: req.payload.username, comment: comment });
 			res.json(req.payload.username);
 		});
 	})
@@ -187,9 +190,10 @@ router
 	.put('/posts/:post/comments/:comment/dislike', auth, function(req, res, next){
 		if (req.comment.usersDisliked.indexOf(req.payload.username) === -1) {
 			req.comment.usersDisliked.push(req.payload.username);
-			pusher.trigger("comments", "dislikeComment", { user: req.payload.username, comment: req.comment });
+			
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
+				pusher.trigger("comments" + req.params.post, "dislikeComment", { user: req.payload.username, comment: req.comment });
 				res.json(req.payload.username);
 			});
 		} 
@@ -201,9 +205,10 @@ router
 	.put('/posts/:post/comments/:comment/undislike', auth, function(req, res, next){
 		var index = req.comment.usersDisliked.indexOf(req.payload.username);
 		req.comment.usersDisliked.splice(index, 1);
-		pusher.trigger("comments", "undislikeComment", { user: req.payload.username, comment: req.comment });
+		
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
+			pusher.trigger("comments" + req.params.post, "undislikeComment", { user: req.payload.username, comment: req.comment });
 			res.json(req.payload.username);
 		});
 	})
@@ -214,7 +219,7 @@ router
 			comment.date = req.body.date;
 			comment.save(function(err, saved){
 				if (err) return next(err);
-				pusher.trigger("comments", "saveComment", saved);
+				pusher.trigger("comments" + req.params.post, "saveComment", saved);
 				res.json(saved);
 			});
 		});
