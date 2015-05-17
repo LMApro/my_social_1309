@@ -86,7 +86,7 @@ router
 		var comment = new Comment(req.body);
 		comment.post = req.post;
 		comment.author = req.payload.username;
-		pusher.trigger("comments" + req.params.post, "addComment", comment);
+		pusher.trigger(req.params.post.toString(), "addComment", comment);
 		comment.save(function(err, comment){
 			if (err) return next(err);
 			req.post.comments.splice(0, 0, comment);
@@ -167,7 +167,7 @@ router
 			
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
-				pusher.trigger("comments" + req.params.post, "likeComment", { user: req.payload.username, comment: comment });
+				pusher.trigger(req.params.post.toString(), "likeComment", { user: req.payload.username, comment: comment });
 				res.json(req.payload.username);
 			});
 		} 
@@ -182,7 +182,7 @@ router
 		
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
-			pusher.trigger("comments" + req.params.post, "unlikeComment", { user: req.payload.username, comment: comment });
+			pusher.trigger(req.params.post.toString(), "unlikeComment", { user: req.payload.username, comment: comment });
 			res.json(req.payload.username);
 		});
 	})
@@ -193,7 +193,7 @@ router
 			
 			req.comment.save(function(err, comment){
 				if (err) return next(err);
-				pusher.trigger("comments" + req.params.post, "dislikeComment", { user: req.payload.username, comment: req.comment });
+				pusher.trigger(req.params.post.toString(), "dislikeComment", { user: req.payload.username, comment: req.comment });
 				res.json(req.payload.username);
 			});
 		} 
@@ -208,7 +208,7 @@ router
 		
 		req.comment.save(function(err, comment){
 			if (err) return next(err);
-			pusher.trigger("comments" + req.params.post, "undislikeComment", { user: req.payload.username, comment: req.comment });
+			pusher.trigger(req.params.post.toString(), "undislikeComment", { user: req.payload.username, comment: req.comment });
 			res.json(req.payload.username);
 		});
 	})
@@ -219,7 +219,7 @@ router
 			comment.date = req.body.date;
 			comment.save(function(err, saved){
 				if (err) return next(err);
-				pusher.trigger("comments" + req.params.post, "saveComment", saved);
+				pusher.trigger(req.params.post.toString(), "saveComment", saved);
 				res.json(saved);
 			});
 		});

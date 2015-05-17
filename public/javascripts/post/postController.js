@@ -9,11 +9,11 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 		$scope.isLoggedIn = auth.isLoggedIn;
 		$scope.isAdmin = auth.isAdmin;
 
-		Pusher.subscribe("comments" + $scope.post._id, "addComment", function(comment){
+		Pusher.subscribe($scope.post._id.toString(), "addComment", function(comment){
 			$scope.post.comments.splice(0, 0, comment);
 		});
 
-		Pusher.subscribe("comments" + $scope.post._id, "saveComment", function(comment){
+		Pusher.subscribe($scope.post._id.toString(), "saveComment", function(comment){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(comment._id);
@@ -27,7 +27,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments.splice(index, 1);
 		});
 
-		Pusher.subscribe("comments" + $scope.post._id, "likeComment", function(data){
+		Pusher.subscribe($scope.post._id.toString(), "likeComment", function(data){
 			var commentIds = $scope.post.comments.map(function(item){
 				return item._id;
 			});
@@ -38,7 +38,7 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			
 		});
 
-		Pusher.subscribe("comments" + $scope.post._id, "unlikeComment", function(data){
+		Pusher.subscribe($scope.post._id.toString(), "unlikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
@@ -46,14 +46,14 @@ angular.module("myNetwork.post.viewcomments.controller", [])
 			$scope.post.comments[commentIndex].usersLiked.splice(userIndex, 1);
 		});
 
-		Pusher.subscribe("comments" + $scope.post._id, "dislikeComment", function(data){
+		Pusher.subscribe($scope.post._id.toString(), "dislikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
 			$scope.post.comments[commentIndex].usersDisliked.push(data.user);
 		});
 
-		Pusher.subscribe("comments" + $scope.post._id, "undislikeComment", function(data){
+		Pusher.subscribe($scope.post._id.toString(), "undislikeComment", function(data){
 			var commentIndex = $scope.post.comments.map(function(item){
 				return item._id;
 			}).indexOf(data.comment._id);
