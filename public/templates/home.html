@@ -1,5 +1,5 @@
 <form ng-show="isLoggedIn() && !editing.current[1]" class="addPost">
-	<textarea autofocus class="form-control" type="text" placeholder="Chia sẻ điều gì đó..." ng-model="newtitle" rows="3"></textarea>
+	<textarea class="form-control" type="text" placeholder="Chia sẻ điều gì đó..." ng-model="newtitle" rows="3"></textarea>
 	<br>
 	<div class="input-group">
 		<input class="form-control" type="text" placeholder="Dẫn link đến trang khác (nếu có)" ng-model="newlink">
@@ -10,7 +10,7 @@
 		Sắp xếp theo: 
 		<span ng-repeat="option in sortOptions">
 			<a href="" ng-click="setOrder(option.order)">{{option.name}}</a>
-			<span ng-if="$index<2">&#8226;</span>
+			<span ng-if="$index<2">&#8226;&nbsp;</span>
 		</span>
 	</p>
 	<br>
@@ -59,11 +59,11 @@
 <ul ng-show="allposts.length>0" class="list-unstyled">
 
 	<li dir-paginate="post in allposts | orderBy: sortOrder | itemsPerPage: postsPerPage" current-page="currentPage" class="post text-primary" ng-mouseover="post.canEditAndDelete=true" ng-mouseleave="post.canEditAndDelete=false">
-		<p ng-show="editing.current[0]._id!==post._id">
+		<p ng-show="editing.current[0]._id!==post._id" class="multiline">
 			<a ng-href="{{post.link | link}}" ng-show="post.link" class="text-primary post" target="_blank">
 				{{post.title}}
 			</a>
-			<span ng-hide="post.link" class="text-only multiline">{{post.title}}</span>
+			<span ng-hide="post.link" class="text-only">{{post.title}}</span>
 			&nbsp;
 		</p>
 		
