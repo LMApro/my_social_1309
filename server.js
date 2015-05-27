@@ -22,7 +22,7 @@ mongoose.connect('mongodb://makatz:matn821309@ds027491.mongolab.com:27491/news')
 app.set('views', path.join(__dirname, 'dist'));
 app.set('view engine', 'html');
 
-// uncomment after placing your favicon in /public
+// uncomment after placing your favicon in /dist
 app.use(favicon(__dirname + '/dist/favicon.png'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
